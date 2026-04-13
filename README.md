@@ -1,100 +1,31 @@
-[index.html.txt](https://github.com/user-attachments/files/26690253/index.html.txt)
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hot Wheels Art</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin:0;
-      background:#0f0f0f;
-      color:#fff;
-    }
-    header {
-      padding:20px;
-      text-align:center;
-      background:#111;
-      font-size:24px;
-    }
-    .container {
-      padding:20px;
-      max-width:1200px;
-      margin:auto;
-    }
-    .grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
-      gap:20px;
-    }
-    .card {
-      background:#1a1a1a;
-      border-radius:16px;
-      overflow:hidden;
-      box-shadow:0 5px 20px rgba(0,0,0,0.5);
-    }
-    .card img {
-      width:100%;
-      height:200px;
-      object-fit:cover;
-    }
-    .card-content {
-      padding:15px;
-    }
-    .price {
-      font-size:18px;
-      margin:10px 0;
-    }
-    .btn {
-      display:inline-block;
-      padding:10px 15px;
-      background:#ff3c3c;
-      color:#fff;
-      text-decoration:none;
-      border-radius:10px;
-    }
-    footer {
-      text-align:center;
-      padding:20px;
-      color:#888;
-    }
-  </style>
-</head>
-<body>
+<div style="padding:40px; text-align:center; background:#111; color:white;">
+    <h2 style="font-size:28px; margin-bottom:20px;">Связаться со мной</h2>
 
-<header>
-  Картины с Hot Wheels
-</header>
+    <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
 
-<div class="container">
-  <h2>Готовые работы</h2>
-  <div class="grid">
+        <a href="https://www.tiktok.com/@apex_store_ua" target="_blank"
+        style="padding:12px 20px; background:#000; border:1px solid #333; color:white; border-radius:10px; text-decoration:none;">
+        TikTok
+        </a>
 
-    <div class="card">
-      <img src="https://via.placeholder.com/400x300" alt="">
-      <div class="card-content">
-        <h3>BMW M3</h3>
-        <div class="price">1200 грн</div>
-        <a href="https://t.me/yourusername" class="btn">Заказать</a>
-      </div>
+        <a href="https://www.instagram.com/apex_shop_ua/" target="_blank"
+        style="padding:12px 20px; background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7); color:white; border-radius:10px; text-decoration:none;">
+        Instagram
+        </a>
+
+        <a href="https://www.olx.ua/uk/myaccount" target="_blank"
+        style="padding:12px 20px; background:#f5a623; color:black; border-radius:10px; text-decoration:none;">
+        OLX
+        </a>
+
+        <a href="https://t.me/bera_999" target="_blank"
+        style="padding:12px 20px; background:#229ED9; color:white; border-radius:10px; text-decoration:none;">
+        Telegram
+        </a>
+
     </div>
 
-    <div class="card">
-      <img src="https://via.placeholder.com/400x300" alt="">
-      <div class="card-content">
-        <h3>Nissan Skyline</h3>
-        <div class="price">1400 грн</div>
-        <a href="https://t.me/yourusername" class="btn">Заказать</a>
-      </div>
-    </div>
-
-  </div>
+    <p style="margin-top:20px; color:#777; font-size:14px;">
+        Быстрый заказ через Telegram — отвечаю быстрее всего
+    </p>
 </div>
-
-<footer>
-  Напиши в Telegram для заказа
-</footer>
-
-</body>
-</html>
