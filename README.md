@@ -9,59 +9,40 @@
 body{
     margin:0;
     font-family:Arial;
+    background:#0f0f0f;
     color:white;
-    background:url('https://images.unsplash.com/photo-1489824904134-891ab64532f1') center/cover fixed;
 }
 
-.overlay{
-    background:rgba(0,0,0,0.8);
-    min-height:100vh;
-}
-
-/* ===== LOGO ===== */
-.apex-logo{
+/* ===== BACK BUTTON (фиксированный угол) ===== */
+.back-btn{
     position:fixed;
     top:20px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:70px;
-    font-weight:900;
-    letter-spacing:12px;
+    left:20px;
     z-index:9999;
-    opacity:0;
+    background:rgba(0,0,0,0.6);
+    border:1px solid rgba(255,255,255,0.2);
+    color:white;
+    padding:10px 15px;
+    border-radius:10px;
+    cursor:pointer;
+    backdrop-filter: blur(8px);
 }
 
-@keyframes logoAnim{
-    0%{opacity:0; transform:translateX(-50%) translateY(-20px) scale(0.8); filter:blur(10px);}
-    50%{opacity:1; filter:blur(0);}
-    100%{opacity:1; transform:translateX(-50%) translateY(0) scale(1);}
-}
-
-.apex-logo.animate{
-    animation:logoAnim 2.5s ease-out;
-}
-
-/* HERO */
-.hero{
-    text-align:center;
-    padding:120px 20px 40px;
-}
-
-/* GRID */
+/* ===== GRID ===== */
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
-    padding:40px;
+    padding:60px;
 }
 
-/* CARD */
+/* ===== CARD ===== */
 .card{
-    background:rgba(20,20,20,0.9);
+    background:#1b1b1b;
     border-radius:12px;
     overflow:hidden;
     cursor:pointer;
-    transition:0.3s;
+    transition:0.25s;
 }
 
 .card:hover{
@@ -69,13 +50,14 @@ body{
     outline:2px solid rgba(255,255,255,0.15);
 }
 
-/* АНИМАЦИЯ */
+/* ===== ANIMATION AREA ===== */
 .card-anim{
     position:relative;
     height:200px;
     overflow:hidden;
 }
 
+/* фон (картина) */
 .art{
     width:100%;
     height:100%;
@@ -83,217 +65,130 @@ body{
     transition:0.5s;
 }
 
+/* машинка */
 .car{
     position:absolute;
     width:75%;
     left:12%;
     top:50%;
-    transform:translateY(-50%) scale(0.8) rotate(0deg);
+    transform:translateY(-50%) scale(0.7) rotate(0deg);
     opacity:0;
-    transition:0.8s cubic-bezier(0.2,0.8,0.2,1);
 }
 
+/* тень */
 .shadow{
     position:absolute;
     width:60%;
     height:20px;
     left:20%;
-    bottom:30px;
-    background:rgba(0,0,0,0.6);
-    filter:blur(10px);
+    bottom:25px;
+    background:black;
+    filter:blur(12px);
     opacity:0;
-    transition:0.6s;
 }
 
-.card:hover .art{
-    transform:scale(1.1);
-    filter:brightness(0.35) blur(1px);
+/* ===== KEYFRAMES (ВАЖНО ДЛЯ ПЕРЕЗАПУСКА) ===== */
+@keyframes carAnim {
+    0%{
+        opacity:0;
+        transform:translateY(-50%) scale(0.6) rotate(0deg);
+    }
+    50%{
+        opacity:1;
+        transform:translateY(-65%) scale(1) rotate(-10deg);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(-60%) scale(1) rotate(-12deg);
+    }
 }
 
+/* запуск анимации */
 .card:hover .car{
-    opacity:1;
-    transform:translateY(-60%) scale(1) rotate(-12deg);
+    animation:carAnim 0.9s ease-out forwards;
 }
 
 .card:hover .shadow{
     opacity:1;
+}
+
+.card:hover .art{
+    filter:brightness(0.35);
     transform:scale(1.1);
 }
 
-/* PRODUCT PAGE */
+/* reset (ВАЖНО) */
+.card:not(:hover) .car{
+    animation:none;
+    opacity:0;
+    transform:translateY(-50%) scale(0.7);
+}
+
+.card:not(:hover) .shadow{
+    opacity:0;
+}
+
+/* текст */
+h3{
+    margin:10px;
+}
+.price{
+    margin:10px;
+    color:#00ff88;
+}
+
+/* ===== PRODUCT PAGE ===== */
 .product{
     display:none;
     padding:40px;
 }
 
-.gallery{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
 .gallery img{
     width:200px;
     border-radius:10px;
+    margin:5px;
 }
-
-.section{
-    margin-top:20px;
-    padding:20px;
-    background:rgba(0,0,0,0.5);
-    border-radius:10px;
-}
-
-/* SOCIAL */
-.social{
-    position:fixed;
-    bottom:15px;
-    right:15px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.social a{
-    padding:10px;
-    border-radius:10px;
-    color:white;
-    text-decoration:none;
-}
-
-.tt{background:#000;border:1px solid #333;}
-.ig{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);}
-.tg{background:#229ED9;}
 </style>
 </head>
 
 <body>
 
-<div class="apex-logo" id="logo">APEX</div>
-
-<div class="overlay">
+<!-- КНОПКА НАЗАД (всегда сверху слева) -->
+<button class="back-btn" onclick="goBack()">← Back</button>
 
 <!-- HOME -->
 <div id="home">
 
-<div class="hero">
-<h1>Premium Car Art</h1>
-<p>Hot Wheels / Automotive Style</p>
-</div>
-
 <div class="grid">
 
-<!-- ТОВАР 1 -->
-<div class="card" onclick="openProduct(0)">
-<div class="card-anim">
-<img class="art" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c">
-<img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
-<div class="shadow"></div>
-</div>
-<h3>BMW M3 Art</h3>
-<div class="price">$49</div>
-</div>
+    <div class="card">
+        <div class="card-anim">
+            <img class="art" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c">
+            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
+            <div class="shadow"></div>
+        </div>
+        <h3>BMW M3 Art</h3>
+        <div class="price">$49</div>
+    </div>
 
-<!-- ТОВАР 2 -->
-<div class="card" onclick="openProduct(1)">
-<div class="card-anim">
-<img class="art" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c">
-<img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
-<div class="shadow"></div>
-</div>
-<h3>Nissan GTR Art</h3>
-<div class="price">$59</div>
-</div>
-
-</div>
-</div>
-
-<!-- PRODUCT PAGE -->
-<div id="product" class="product">
-
-<button onclick="back()">← Назад</button>
-
-<h1 id="title"></h1>
-<p id="price"></p>
-
-<div class="gallery" id="gallery"></div>
-
-<div class="section">
-<h3>Характеристики</h3>
-<ul id="specs"></ul>
-</div>
-
-<div class="section">
-<h3>Отзывы</h3>
-<p>⭐ 5885.0 — Очень крутая работа</p>
-<p>⭐ 4.9 — Быстро пришло</p>
-</div>
+    <div class="card">
+        <div class="card-anim">
+            <img class="art" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70">
+            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
+            <div class="shadow"></div>
+        </div>
+        <h3>Nissan GTR Art</h3>
+        <div class="price">$59</div>
+    </div>
 
 </div>
 
-</div>
-
-<!-- SOCIAL -->
-<div class="social">
-<a class="tt" href="https://www.tiktok.com/@apex_store_ua" target="_blank">TikTok</a>
-<a class="ig" href="https://www.instagram.com/apex_shop_ua/" target="_blank">Instagram</a>
-<a class="tg" href="https://t.me/bera_999" target="_blank">Telegram</a>
 </div>
 
 <script>
-const products=[
-{
-title:"BMW M3 Art",
-price:"$49",
-images:["https://images.unsplash.com/photo-1511919884226-fd3cad34687c"],
-specs:["A3","Premium print","Garage style"]
-},
-{
-title:"Nissan GTR Art",
-price:"$59",
-images:["https://images.unsplash.com/photo-1511919884226-fd3cad34687c"],
-specs:["A3","Matte","Neon style"]
+function goBack(){
+    window.scrollTo({top:0, behavior:'smooth'});
 }
-];
-
-function openProduct(i){
-home.style.display="none";
-product.style.display="block";
-title.innerText=products[i].title;
-price.innerText=products[i].price;
-
-gallery.innerHTML="";
-products[i].images.forEach(img=>{
-gallery.innerHTML+=`<img src="${img}">`;
-});
-
-specs.innerHTML="";
-products[i].specs.forEach(s=>{
-specs.innerHTML+=`<li>${s}</li>`;
-});
-}
-
-function back(){
-home.style.display="block";
-product.style.display="none";
-}
-
-/* LOGO */
-function playLogo(){
-logo.classList.remove("animate");
-void logo.offsetWidth;
-logo.classList.add("animate");
-}
-
-window.addEventListener("load",playLogo);
-
-let last=0;
-window.addEventListener("scroll",()=>{
-if(window.scrollY<80 && last>200){
-playLogo();
-}
-last=window.scrollY;
-});
 </script>
 
 </body>
