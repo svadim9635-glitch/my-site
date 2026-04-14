@@ -311,3 +311,128 @@ window.addEventListener("scroll",()=>{
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX DEMO</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0f0f0f;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* КАРТОЧКА */
+.card{
+    width:300px;
+    background:#1c1c1c;
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+    transition: transform 0.3s ease;
+}
+
+/* увеличение */
+.card:hover{
+    transform: scale(1.03);
+    outline:2px solid rgba(255,255,255,0.15);
+}
+
+/* ОБЛАСТЬ АНИМАЦИИ */
+.card-anim{
+    position:relative;
+    height:200px;
+    overflow:hidden;
+}
+
+/* картина */
+.art{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition: all 0.5s ease;
+}
+
+/* машинка */
+.car{
+    position:absolute;
+    width:75%;
+    left:12%;
+    top:50%;
+    transform: translateY(-50%) rotate(0deg) scale(0.8);
+    opacity:0;
+    transition: all 0.8s cubic-bezier(0.2,0.8,0.2,1);
+}
+
+/* тень */
+.shadow{
+    position:absolute;
+    width:60%;
+    height:20px;
+    left:20%;
+    bottom:30px;
+    background:rgba(0,0,0,0.6);
+    filter:blur(10px);
+    opacity:0;
+    transition: all 0.6s ease;
+}
+
+/* ===== АНИМАЦИЯ ПРИ НАВЕДЕНИИ ===== */
+.card:hover .art{
+    transform: scale(1.1);
+    filter: brightness(0.35) blur(1px);
+}
+
+.card:hover .car{
+    opacity:1;
+    transform: translateY(-60%) rotate(-12deg) scale(1);
+}
+
+.card:hover .shadow{
+    opacity:1;
+    transform: scale(1.1);
+}
+
+/* текст */
+h3{
+    margin:10px;
+}
+
+.price{
+    margin:10px;
+    color:#00ff88;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="card-anim">
+        <!-- картина -->
+        <img class="art" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c">
+
+        <!-- машинка -->
+        <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
+
+        <!-- тень -->
+        <div class="shadow"></div>
+    </div>
+
+    <h3>BMW M3 Art</h3>
+    <div class="price">$49</div>
+
+</div>
+
+</body>
+</html>
