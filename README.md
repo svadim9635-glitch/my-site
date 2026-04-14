@@ -3,26 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APEX </title>
+<title>APEX STORE</title>
 
 <style>
 body{
     margin:0;
     font-family:Arial;
-    background:#0f0f0f;
+    background:#0b0b0b;
     color:white;
 }
 
-/* ===== BACK BUTTON (фиксированный угол) ===== */
-.back-btn{
+/* ===== LOGO ===== */
+.logo{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:60px;
+    font-weight:900;
+    letter-spacing:12px;
+    z-index:9999;
+    opacity:0;
+}
+
+@keyframes logoAnim{
+    0%{opacity:0; transform:translateX(-50%) translateY(-20px) scale(0.8); filter:blur(10px);}
+    50%{opacity:1; filter:blur(0);}
+    100%{opacity:1; transform:translateX(-50%) translateY(0) scale(1);}
+}
+
+.logo.animate{
+    animation:logoAnim 2.5s ease-out;
+}
+
+/* ===== BACK BUTTON ===== */
+.back{
     position:fixed;
     top:20px;
     left:20px;
     z-index:9999;
+    padding:10px 15px;
     background:rgba(0,0,0,0.6);
     border:1px solid rgba(255,255,255,0.2);
     color:white;
-    padding:10px 15px;
     border-radius:10px;
     cursor:pointer;
     backdrop-filter: blur(8px);
@@ -33,16 +56,16 @@ body{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
-    padding:60px;
+    padding:120px 40px 60px;
 }
 
-/* ===== CARD ===== */
+/* ===== CARD (картина на столе) ===== */
 .card{
-    background:#1b1b1b;
+    background:#111;
     border-radius:12px;
     overflow:hidden;
     cursor:pointer;
-    transition:0.25s;
+    transition:0.3s;
 }
 
 .card:hover{
@@ -50,14 +73,31 @@ body{
     outline:2px solid rgba(255,255,255,0.15);
 }
 
-/* ===== ANIMATION AREA ===== */
-.card-anim{
+/* стол */
+.table{
+    height:220px;
+    background:
+    linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
+    background-size:cover;
     position:relative;
-    height:200px;
     overflow:hidden;
 }
 
-/* фон (картина) */
+/* рамка (картина) */
+.frame{
+    position:absolute;
+    width:70%;
+    height:70%;
+    top:15%;
+    left:15%;
+    border:4px solid rgba(255,255,255,0.3);
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* фон картины */
 .art{
     width:100%;
     height:100%;
@@ -68,10 +108,10 @@ body{
 /* машинка */
 .car{
     position:absolute;
-    width:75%;
-    left:12%;
-    top:50%;
-    transform:translateY(-50%) scale(0.7) rotate(0deg);
+    width:60%;
+    left:20%;
+    top:55%;
+    transform:translateY(-50%) scale(0.8);
     opacity:0;
 }
 
@@ -79,33 +119,32 @@ body{
 .shadow{
     position:absolute;
     width:60%;
-    height:20px;
+    height:15px;
     left:20%;
-    bottom:25px;
+    bottom:10px;
     background:black;
-    filter:blur(12px);
+    filter:blur(10px);
     opacity:0;
 }
 
-/* ===== KEYFRAMES (ВАЖНО ДЛЯ ПЕРЕЗАПУСКА) ===== */
-@keyframes carAnim {
+/* ===== ANIMATION ===== */
+@keyframes carMove{
     0%{
         opacity:0;
-        transform:translateY(-50%) scale(0.6) rotate(0deg);
+        transform:translateY(-50%) scale(0.7) rotate(0deg);
     }
     50%{
         opacity:1;
-        transform:translateY(-65%) scale(1) rotate(-10deg);
+        transform:translateY(-70%) scale(1) rotate(-10deg);
     }
     100%{
         opacity:1;
-        transform:translateY(-60%) scale(1) rotate(-12deg);
+        transform:translateY(-65%) scale(1) rotate(-12deg);
     }
 }
 
-/* запуск анимации */
 .card:hover .car{
-    animation:carAnim 0.9s ease-out forwards;
+    animation:carMove 0.9s ease-out forwards;
 }
 
 .card:hover .shadow{
@@ -113,22 +152,16 @@ body{
 }
 
 .card:hover .art{
-    filter:brightness(0.35);
+    filter:brightness(0.4);
     transform:scale(1.1);
 }
 
-/* reset (ВАЖНО) */
 .card:not(:hover) .car{
     animation:none;
     opacity:0;
-    transform:translateY(-50%) scale(0.7);
 }
 
-.card:not(:hover) .shadow{
-    opacity:0;
-}
-
-/* текст */
+/* text */
 h3{
     margin:10px;
 }
@@ -136,59 +169,76 @@ h3{
     margin:10px;
     color:#00ff88;
 }
-
-/* ===== PRODUCT PAGE ===== */
-.product{
-    display:none;
-    padding:40px;
-}
-
-.gallery img{
-    width:200px;
-    border-radius:10px;
-    margin:5px;
-}
 </style>
 </head>
 
 <body>
 
-<!-- КНОПКА НАЗАД (всегда сверху слева) -->
-<button class="back-btn" onclick="goBack()">← Back</button>
-
-<!-- HOME -->
-<div id="home">
+<div class="logo" id="logo">APEX</div>
+<button class="back" onclick="scrollToTop()">← Back</button>
 
 <div class="grid">
 
-    <div class="card">
-        <div class="card-anim">
-            <img class="art" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c">
+<!-- 10 ОБЪЯВЛЕНИЙ -->
+<script>
+const data = [
+"BMW M3 Art",
+"Nissan GTR Art",
+"Mercedes AMG Art",
+"Toyota Supra Art",
+"Audi RS6 Art",
+"Lamborghini Huracan Art",
+"Porsche 911 Art",
+"Ferrari F8 Art",
+"McLaren 720S Art",
+"Bugatti Chiron Art"
+];
+
+const grid = document.currentScript.parentElement;
+
+data.forEach((name,i)=>{
+grid.innerHTML += `
+<div class="card">
+    <div class="table">
+        <div class="frame">
+            <img class="art" src="https://picsum.photos/600/400?random=${i}">
             <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
             <div class="shadow"></div>
         </div>
-        <h3>BMW M3 Art</h3>
-        <div class="price">$49</div>
     </div>
-
-    <div class="card">
-        <div class="card-anim">
-            <img class="art" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70">
-            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
-            <div class="shadow"></div>
-        </div>
-        <h3>Nissan GTR Art</h3>
-        <div class="price">$59</div>
-    </div>
-
+    <h3>${name}</h3>
+    <div class="price">$${49+i*5}</div>
 </div>
+`;
+});
+</script>
 
 </div>
 
 <script>
-function goBack(){
-    window.scrollTo({top:0, behavior:'smooth'});
+/* LOGO ANIMATION */
+function playLogo(){
+    const logo=document.getElementById("logo");
+    logo.classList.remove("animate");
+    void logo.offsetWidth;
+    logo.classList.add("animate");
 }
+
+window.addEventListener("load",playLogo);
+
+/* SCROLL BACK TOP */
+function scrollToTop(){
+    window.scrollTo({top:0, behavior:"smooth"});
+}
+
+/* повтор логотипа при возврате вверх */
+let last=0;
+window.addEventListener("scroll",()=>{
+if(window.scrollY<80 && last>200){
+playLogo();
+}
+last=window.scrollY;
+});
 </script>
 
 </body>
