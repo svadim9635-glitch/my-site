@@ -13,10 +13,10 @@ body{
     color:white;
 }
 
-/* ===== STATIC LOGO ===== */
+/* ===== LOGO (статичное после анимации) ===== */
 .logo{
     position:fixed;
-    top:18px;
+    top:15px;
     left:20px;
     font-size:28px;
     font-weight:900;
@@ -25,10 +25,10 @@ body{
     opacity:0.9;
 }
 
-/* ===== ANIMATED TITLE (APEX) ===== */
+/* ===== BIG TITLE ===== */
 .title{
     position:fixed;
-    top:18px;
+    top:15px;
     left:50%;
     transform:translateX(-50%);
     font-size:60px;
@@ -38,24 +38,22 @@ body{
     opacity:0;
 }
 
+/* анимация ТОЛЬКО при входе */
 @keyframes titleAnim{
     0%{
         opacity:0;
-        transform:translateX(-50%) translateY(-20px) scale(0.85);
+        transform:translateX(-50%) translateY(-20px) scale(0.8);
         filter:blur(10px);
-    }
-    50%{
-        opacity:1;
-        filter:blur(0);
     }
     100%{
         opacity:1;
         transform:translateX(-50%) translateY(0) scale(1);
+        filter:blur(0);
     }
 }
 
 .title.animate{
-    animation:titleAnim 2.5s ease-out;
+    animation:titleAnim 2.5s ease-out forwards;
 }
 
 /* ===== BACK BUTTON ===== */
@@ -64,7 +62,6 @@ body{
     top:20px;
     left:20px;
     z-index:9999;
-    margin-top:40px;
     padding:10px 15px;
     background:rgba(0,0,0,0.6);
     border:1px solid rgba(255,255,255,0.2);
@@ -96,7 +93,7 @@ body{
     outline:2px solid rgba(255,255,255,0.15);
 }
 
-/* ===== TABLE (черный стол) ===== */
+/* ===== TABLE ===== */
 .table{
     height:220px;
     background:
@@ -149,7 +146,7 @@ body{
     opacity:0;
 }
 
-/* ===== ANIMATION ===== */
+/* ANIMATION */
 @keyframes carAnim{
     0%{
         opacity:0;
@@ -178,10 +175,15 @@ body{
     transform:scale(1.1);
 }
 
-/* reset */
-.card:not(:hover) .car{
-    opacity:0;
-    animation:none;
+/* ===== PRODUCT PAGE ===== */
+.product{
+    display:none;
+    padding:120px 40px;
+}
+
+.gallery img{
+    width:200px;
+    border-radius:10px;
 }
 
 /* TEXT */
@@ -195,11 +197,22 @@ h3{margin:10px;}
 <div class="logo">APEX</div>
 <div class="title" id="title">APEX</div>
 
-<button class="back" onclick="scrollToTop()">← Back</button>
+<button class="back" onclick="goBack()">← Back</button>
 
+<!-- HOME -->
+<div id="home">
 <div class="grid" id="grid"></div>
+</div>
+
+<!-- PRODUCT -->
+<div id="product" class="product">
+<h1 id="pTitle"></h1>
+<p id="pPrice"></p>
+<div class="gallery" id="gallery"></div>
+</div>
 
 <script>
+
 const cars = [
 "BMW M3 Art","Nissan GTR Art","Mercedes AMG Art",
 "Toyota Supra Art","Audi RS6 Art","Lambo Huracan",
@@ -208,45 +221,55 @@ const cars = [
 
 const grid = document.getElementById("grid");
 
-/* create 10 cards */
-cars.forEach((name,i)=>{
-    grid.innerHTML += `
-    <div class="card">
-        <div class="table">
-            <div class="frame">
-                <img class="art" src="https://picsum.photos/600/400?random=${i}">
-                <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
-                <div class="shadow"></div>
-            </div>
+/* ===== DATA ===== */
+const products = cars.map((name,i)=>({
+    title:name,
+    price:`$${49+i*5}`,
+    img:`https://picsum.photos/600/400?random=${i}`
+}));
+
+/* ===== CREATE CARDS ===== */
+products.forEach((p,i)=>{
+grid.innerHTML += `
+<div class="card" onclick="openProduct(${i})">
+    <div class="table">
+        <div class="frame">
+            <img class="art" src="${p.img}">
+            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
+            <div class="shadow"></div>
         </div>
-        <h3>${name}</h3>
-        <div class="price">$${49+i*5}</div>
-    </div>`;
+    </div>
+    <h3>${p.title}</h3>
+    <div class="price">${p.price}</div>
+</div>`;
 });
 
-/* ===== TITLE ANIMATION ===== */
-function playTitle(){
+/* ===== OPEN PRODUCT ===== */
+function openProduct(i){
+    home.style.display="none";
+    product.style.display="block";
+
+    pTitle.innerText=products[i].title;
+    pPrice.innerText=products[i].price;
+
+    gallery.innerHTML=`
+        <img src="${products[i].img}">
+        <img src="https://picsum.photos/600/400?random=${i+10}">
+    `;
+}
+
+/* ===== BACK ===== */
+function goBack(){
+    home.style.display="block";
+    product.style.display="none";
+}
+
+/* ===== TITLE ANIMATION (ONCE ONLY) ===== */
+window.addEventListener("load",()=>{
     const t=document.getElementById("title");
-    t.classList.remove("animate");
-    void t.offsetWidth;
-    t.classList.add("animate");
-}
-
-window.addEventListener("load",playTitle);
-
-/* scroll back top */
-function scrollToTop(){
-    window.scrollTo({top:0,behavior:"smooth"});
-}
-
-/* repeat animation when back to top */
-let last=0;
-window.addEventListener("scroll",()=>{
-    if(window.scrollY<80 && last>200){
-        playTitle();
-    }
-    last=window.scrollY;
+    t.classList.add("animate"); // один раз при входе
 });
+
 </script>
 
 </body>
