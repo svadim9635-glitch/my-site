@@ -9,266 +9,191 @@
 body{
     margin:0;
     font-family:Arial;
-    background:#0b0b0b;
+    background:#0a0a0a;
     color:white;
 }
 
-/* ===== LOGO (статичное после анимации) ===== */
-.logo{
+/* ===== TOP ===== */
+.top{
     position:fixed;
-    top:15px;
-    left:20px;
-    font-size:28px;
-    font-weight:900;
-    letter-spacing:6px;
-    z-index:9999;
-    opacity:0.9;
-}
-
-/* ===== BIG TITLE ===== */
-.title{
-    position:fixed;
-    top:15px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:60px;
-    font-weight:900;
-    letter-spacing:12px;
-    z-index:9998;
-    opacity:0;
-}
-
-/* анимация ТОЛЬКО при входе */
-@keyframes titleAnim{
-    0%{
-        opacity:0;
-        transform:translateX(-50%) translateY(-20px) scale(0.8);
-        filter:blur(10px);
-    }
-    100%{
-        opacity:1;
-        transform:translateX(-50%) translateY(0) scale(1);
-        filter:blur(0);
-    }
-}
-
-.title.animate{
-    animation:titleAnim 2.5s ease-out forwards;
-}
-
-/* ===== BACK BUTTON ===== */
-.back{
-    position:fixed;
-    top:20px;
-    left:20px;
-    z-index:9999;
-    padding:10px 15px;
+    top:0;
+    width:100%;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
     background:rgba(0,0,0,0.6);
-    border:1px solid rgba(255,255,255,0.2);
+    backdrop-filter:blur(10px);
+    z-index:9999;
+}
+
+.logo{
+    font-weight:900;
+    font-size:24px;
+}
+
+/* buttons */
+.btn{
+    background:#111;
+    border:1px solid #333;
     color:white;
-    border-radius:10px;
+    padding:8px 12px;
     cursor:pointer;
-    backdrop-filter:blur(8px);
+    margin-left:5px;
+    border-radius:8px;
 }
 
-/* ===== GRID ===== */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:120px 40px 60px;
+/* ===== SECTIONS ===== */
+section{
+    display:none;
+    padding:100px 40px;
 }
 
-/* ===== CARD ===== */
+.active{
+    display:block;
+}
+
+/* ===== LOGIN ===== */
+.loginBox{
+    max-width:300px;
+    margin:auto;
+}
+
+/* ===== PROFILE ===== */
 .card{
     background:#111;
-    border-radius:12px;
-    overflow:hidden;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:scale(1.03);
-    outline:2px solid rgba(255,255,255,0.15);
-}
-
-/* ===== TABLE ===== */
-.table{
-    height:220px;
-    background:
-    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
-    url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
-    background-size:cover;
-    position:relative;
-}
-
-/* FRAME */
-.frame{
-    position:absolute;
-    width:70%;
-    height:70%;
-    top:15%;
-    left:15%;
-    border:3px solid rgba(255,255,255,0.25);
-    border-radius:8px;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,0.6);
-}
-
-/* ART */
-.art{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:0.5s;
-}
-
-/* CAR */
-.car{
-    position:absolute;
-    width:65%;
-    left:18%;
-    top:55%;
-    opacity:0;
-    transform:translateY(-50%) scale(0.8);
-}
-
-/* SHADOW */
-.shadow{
-    position:absolute;
-    width:60%;
-    height:15px;
-    left:20%;
-    bottom:10px;
-    background:black;
-    filter:blur(10px);
-    opacity:0;
-}
-
-/* ANIMATION */
-@keyframes carAnim{
-    0%{
-        opacity:0;
-        transform:translateY(-50%) scale(0.7) rotate(0deg);
-    }
-    50%{
-        opacity:1;
-        transform:translateY(-70%) scale(1) rotate(-10deg);
-    }
-    100%{
-        opacity:1;
-        transform:translateY(-65%) scale(1) rotate(-12deg);
-    }
-}
-
-.card:hover .car{
-    animation:carAnim 0.9s ease forwards;
-}
-
-.card:hover .shadow{
-    opacity:1;
-}
-
-.card:hover .art{
-    filter:brightness(0.35);
-    transform:scale(1.1);
-}
-
-/* ===== PRODUCT PAGE ===== */
-.product{
-    display:none;
-    padding:120px 40px;
-}
-
-.gallery img{
-    width:200px;
+    padding:15px;
     border-radius:10px;
+    margin:10px 0;
 }
 
-/* TEXT */
-h3{margin:10px;}
-.price{margin:10px;color:#00ff88;}
+/* ===== ADMIN ===== */
+.adminBox{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+.stat{
+    background:#111;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.green{color:#00ff88;}
 </style>
 </head>
 
 <body>
 
+<!-- TOP -->
+<div class="top">
 <div class="logo">APEX</div>
-<div class="title" id="title">APEX</div>
 
-<button class="back" onclick="goBack()">← Back</button>
-
-<!-- HOME -->
-<div id="home">
-<div class="grid" id="grid"></div>
+<div>
+<button class="btn" onclick="show('shop')">Shop</button>
+<button class="btn" onclick="show('login')">Login</button>
+<button class="btn" onclick="show('profile')">Profile</button>
+<button class="btn" onclick="show('admin')">Admin</button>
+</div>
 </div>
 
-<!-- PRODUCT -->
-<div id="product" class="product">
-<h1 id="pTitle"></h1>
-<p id="pPrice"></p>
-<div class="gallery" id="gallery"></div>
+<!-- SHOP -->
+<section id="shop" class="active">
+<h1>Shop</h1>
+<p>Карточки товаров тут</p>
+</section>
+
+<!-- LOGIN -->
+<section id="login">
+<div class="loginBox">
+<h2>Login / Register</h2>
+<input placeholder="Name" id="name">
+<button class="btn" onclick="login()">Enter</button>
 </div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile">
+<h2>Profile</h2>
+
+<div class="card">
+<p>👤 User: <span id="userName">Guest</span></p>
+</div>
+
+<div class="card">
+<h3>Saved paintings</h3>
+<p>Пока пусто</p>
+</div>
+
+<div class="card">
+<h3>Orders</h3>
+<p>Пока пусто</p>
+</div>
+</section>
+
+<!-- ADMIN -->
+<section id="admin">
+<h2>Admin Panel</h2>
+
+<div class="adminBox">
+
+<div class="stat">
+<h3 class="green" id="visits">124</h3>
+<p>Visits</p>
+</div>
+
+<div class="stat">
+<h3 class="green" id="users">12</h3>
+<p>Users</p>
+</div>
+
+<div class="stat">
+<h3 class="green" id="orders">3</h3>
+<p>Orders</p>
+</div>
+
+<div class="stat">
+<h3 class="green" id="online">1</h3>
+<p>Online</p>
+</div>
+
+</div>
+</section>
 
 <script>
 
-const cars = [
-"BMW M3 Art","Nissan GTR Art","Mercedes AMG Art",
-"Toyota Supra Art","Audi RS6 Art","Lambo Huracan",
-"Porsche 911","Ferrari F8","McLaren 720S","Bugatti Chiron"
-];
-
-const grid = document.getElementById("grid");
-
-/* ===== DATA ===== */
-const products = cars.map((name,i)=>({
-    title:name,
-    price:`$${49+i*5}`,
-    img:`https://picsum.photos/600/400?random=${i}`
-}));
-
-/* ===== CREATE CARDS ===== */
-products.forEach((p,i)=>{
-grid.innerHTML += `
-<div class="card" onclick="openProduct(${i})">
-    <div class="table">
-        <div class="frame">
-            <img class="art" src="${p.img}">
-            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
-            <div class="shadow"></div>
-        </div>
-    </div>
-    <h3>${p.title}</h3>
-    <div class="price">${p.price}</div>
-</div>`;
-});
-
-/* ===== OPEN PRODUCT ===== */
-function openProduct(i){
-    home.style.display="none";
-    product.style.display="block";
-
-    pTitle.innerText=products[i].title;
-    pPrice.innerText=products[i].price;
-
-    gallery.innerHTML=`
-        <img src="${products[i].img}">
-        <img src="https://picsum.photos/600/400?random=${i+10}">
-    `;
+/* ===== NAV ===== */
+function show(id){
+document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
 }
 
-/* ===== BACK ===== */
-function goBack(){
-    home.style.display="block";
-    product.style.display="none";
+/* ===== LOGIN ===== */
+function login(){
+let name=document.getElementById("name").value;
+if(!name) return;
+
+localStorage.setItem("user",name);
+document.getElementById("userName").innerText=name;
+show("profile");
 }
 
-/* ===== TITLE ANIMATION (ONCE ONLY) ===== */
-window.addEventListener("load",()=>{
-    const t=document.getElementById("title");
-    t.classList.add("animate"); // один раз при входе
-});
+/* load user */
+let user=localStorage.getItem("user");
+if(user){
+document.getElementById("userName").innerText=user;
+}
+
+/* ===== FAKE STATS ===== */
+let visits=localStorage.getItem("visits")||0;
+visits++;
+localStorage.setItem("visits",visits);
+
+document.getElementById("visits").innerText=visits;
+document.getElementById("users").innerText=3;
+document.getElementById("orders").innerText=1;
+document.getElementById("online").innerText=1;
 
 </script>
 
