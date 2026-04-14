@@ -13,8 +13,20 @@ body{
     color:white;
 }
 
-/* ===== LOGO ===== */
+/* ===== STATIC LOGO ===== */
 .logo{
+    position:fixed;
+    top:18px;
+    left:20px;
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:6px;
+    z-index:9999;
+    opacity:0.9;
+}
+
+/* ===== ANIMATED TITLE (APEX) ===== */
+.title{
     position:fixed;
     top:18px;
     left:50%;
@@ -22,17 +34,28 @@ body{
     font-size:60px;
     font-weight:900;
     letter-spacing:12px;
+    z-index:9998;
     opacity:0;
 }
 
-@keyframes logoAnim{
-    0%{opacity:0; transform:translateX(-50%) translateY(-20px) scale(0.8); filter:blur(10px);}
-    50%{opacity:1; filter:blur(0);}
-    100%{opacity:1; transform:translateX(-50%) translateY(0) scale(1);}
+@keyframes titleAnim{
+    0%{
+        opacity:0;
+        transform:translateX(-50%) translateY(-20px) scale(0.85);
+        filter:blur(10px);
+    }
+    50%{
+        opacity:1;
+        filter:blur(0);
+    }
+    100%{
+        opacity:1;
+        transform:translateX(-50%) translateY(0) scale(1);
+    }
 }
 
-.logo.animate{
-    animation:logoAnim 2.5s ease-out;
+.title.animate{
+    animation:titleAnim 2.5s ease-out;
 }
 
 /* ===== BACK BUTTON ===== */
@@ -41,13 +64,14 @@ body{
     top:20px;
     left:20px;
     z-index:9999;
+    margin-top:40px;
     padding:10px 15px;
     background:rgba(0,0,0,0.6);
     border:1px solid rgba(255,255,255,0.2);
     color:white;
     border-radius:10px;
     cursor:pointer;
-    backdrop-filter: blur(8px);
+    backdrop-filter:blur(8px);
 }
 
 /* ===== GRID ===== */
@@ -72,7 +96,7 @@ body{
     outline:2px solid rgba(255,255,255,0.15);
 }
 
-/* ===== TABLE ===== */
+/* ===== TABLE (черный стол) ===== */
 .table{
     height:220px;
     background:
@@ -141,7 +165,6 @@ body{
     }
 }
 
-/* важно: animation запускается каждый hover */
 .card:hover .car{
     animation:carAnim 0.9s ease forwards;
 }
@@ -169,13 +192,14 @@ h3{margin:10px;}
 
 <body>
 
-<div class="logo" id="logo">APEX</div>
+<div class="logo">APEX</div>
+<div class="title" id="title">APEX</div>
+
 <button class="back" onclick="scrollToTop()">← Back</button>
 
 <div class="grid" id="grid"></div>
 
 <script>
-/* ===== DATA ===== */
 const cars = [
 "BMW M3 Art","Nissan GTR Art","Mercedes AMG Art",
 "Toyota Supra Art","Audi RS6 Art","Lambo Huracan",
@@ -184,7 +208,7 @@ const cars = [
 
 const grid = document.getElementById("grid");
 
-/* ===== CREATE CARDS ===== */
+/* create 10 cards */
 cars.forEach((name,i)=>{
     grid.innerHTML += `
     <div class="card">
@@ -200,20 +224,29 @@ cars.forEach((name,i)=>{
     </div>`;
 });
 
-/* ===== LOGO ANIMATION ===== */
-function playLogo(){
-    const logo=document.getElementById("logo");
-    logo.classList.remove("animate");
-    void logo.offsetWidth;
-    logo.classList.add("animate");
+/* ===== TITLE ANIMATION ===== */
+function playTitle(){
+    const t=document.getElementById("title");
+    t.classList.remove("animate");
+    void t.offsetWidth;
+    t.classList.add("animate");
 }
 
-window.addEventListener("load",playLogo);
+window.addEventListener("load",playTitle);
 
-/* ===== BACK ===== */
+/* scroll back top */
 function scrollToTop(){
     window.scrollTo({top:0,behavior:"smooth"});
 }
+
+/* repeat animation when back to top */
+let last=0;
+window.addEventListener("scroll",()=>{
+    if(window.scrollY<80 && last>200){
+        playTitle();
+    }
+    last=window.scrollY;
+});
 </script>
 
 </body>
