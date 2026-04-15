@@ -27,33 +27,44 @@ body{
 
 /* ===== BIG TITLE ===== */
 .title{
-    position:fixed;
-    top:15px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:60px;
-    font-weight:900;
-    letter-spacing:12px;
-    z-index:9998;
-    opacity:0;
+ position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 600px; /* Размер логотипа */
+    max-width: 90%;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* анимация ТОЛЬКО при входе */
 @keyframes titleAnim{
-    0%{
-        opacity:0;
-        transform:translateX(-50%) translateY(-20px) scale(0.8);
-        filter:blur(10px);
+  0% {
+        opacity: 0;
+        transform: translate(-50%, -55%) scale(0.7);
+        filter: blur(20px) brightness(1.5);
     }
-    100%{
-        opacity:1;
-        transform:translateX(-50%) translateY(0) scale(1);
-        filter:blur(0);
+    30% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.8);
+        filter: blur(0px) brightness(1);
+    }
+    70% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.85);
+        filter: blur(0px);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -45%) scale(1);
+        filter: blur(10px);
+        visibility: hidden;
     }
 }
 
 .title.animate{
-    animation:titleAnim 2.5s ease-out forwards;
+animation: titleAnim 3.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* ===== BACK BUTTON ===== */
@@ -195,7 +206,7 @@ h3{margin:10px;}
 <body>
 
 <div class="logo">APEX</div>
-<div class="title" id="title">APEX</div>
+<img src="https://i.ibb.co/DP6gCNSy/image.jpg" class="title" id="title">
 
 <button class="back" onclick="goBack()">← Back</button>
 
