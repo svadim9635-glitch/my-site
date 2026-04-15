@@ -1,165 +1,172 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APEX STORE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Premium Store</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. БАЗОВЫЕ НАСТРОЙКИ (Темная тема) */
+        body {
+            background-color: #0a0a0a; /* Глубокий черный */
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
 
-<style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#0b0b0b;
-    color:white;
-}
+        /* 2. ГЛАВНЫЙ ЭКРАН (Без воды) */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+        }
 
-/* 1. ИСПРАВЛЕННОЕ ЛОГО (Твое фото вместо текста) */
-.title{
-    position:fixed;
-    top:15px;
-    left:50%;
-    transform:translateX(-50%);
-    /* Ставим высоту как у старого текста, чтобы не резало */
-    height: 60px; 
-    width: auto;
-    z-index: 9998;
-    opacity: 0;
-    /* Убираем фон и инвертируем буквы в белый */
-    filter: invert(1) brightness(1.2);
-    mix-blend-mode: screen;
-}
+        header h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+        }
 
-@keyframes titleAnim{
-    0%{
-        opacity:0;
-        transform:translateX(-50%) translateY(-20px) scale(0.8);
-        filter: invert(1) blur(10px);
-    }
-    100%{
-        opacity:1;
-        transform:translateX(-50%) translateY(0) scale(1);
-        filter: invert(1) blur(0);
-    }
-}
+        header p {
+            color: #888;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
 
-.title.animate{
-    animation:titleAnim 2.5s ease-out forwards;
-}
+        .btn-main {
+            padding: 15px 40px;
+            background: #ffffff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.4s ease; /* Плавность кнопки */
+        }
 
-.logo{
-    position:fixed;
-    top:15px;
-    left:20px;
-    font-size:28px;
-    font-weight:900;
-    letter-spacing:6px;
-    z-index:9999;
-    opacity:0.9;
-}
+        .btn-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
 
-.back{
-    position:fixed;
-    top:20px;
-    left:20px;
-    z-index:9999;
-    padding:10px 15px;
-    background:rgba(0,0,0,0.6);
-    border:1px solid rgba(255,255,255,0.2);
-    color:white;
-    border-radius:10px;
-    cursor:pointer;
-    backdrop-filter:blur(8px);
-}
+        /* 3. СЕТКА ТОВАРОВ */
+        .container {
+            max-width: 1100px;
+            margin: 100px auto;
+            padding: 0 20px;
+        }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:120px 40px 60px;
-}
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
 
-.card{
-    background:#111;
-    border-radius:12px;
-    overflow:hidden;
-    cursor:pointer;
-    transition:0.3s;
-}
+        /* 4. КАРТОЧКА ТОВАРА (Плавная анимация при наведении) */
+        .product-card {
+            background: #151515;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #222;
+            transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Плавность как у Apple */
+            text-align: center;
+        }
 
-.card:hover{
-    transform:scale(1.03);
-    outline:2px solid rgba(255,255,255,0.15);
-}
+        .product-card:hover {
+            border-color: #444;
+            transform: translateY(-10px); /* Мягкий подъем вверх */
+        }
 
-.table{
-    height:220px;
-    background:
-    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
-    url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
-    background-size:cover;
-    position:relative;
-}
+        .product-img {
+            width: 100%;
+            height: 250px;
+            background: #222; /* Заглушка для фото */
+            border-radius: 15px;
+            margin-bottom: 20px;
+            object-fit: cover;
+            transition: 0.5s ease;
+        }
 
-.frame{
-    position:absolute;
-    width:70%;
-    height:70%;
-    top:15%;
-    left:15%;
-    border:3px solid rgba(255,255,255,0.25);
-    border-radius:8px;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,0.6);
-}
+        .product-card:hover .product-img {
+            transform: scale(1.03); /* Небольшая анимация фото */
+        }
 
-.art{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:0.5s;
-}
+        .price {
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 15px 0;
+            display: block;
+        }
 
-.car{
-    position:absolute;
-    width:65%;
-    left:18%;
-    top:55%;
-    opacity:0;
-    transform:translateY(-50%) scale(0.8);
-}
+        .btn-buy {
+            background: transparent;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-.shadow{
-    position:absolute;
-    width:60%;
-    height:15px;
-    left:20%;
-    bottom:10px;
-    background:black;
-    filter:blur(10px);
-    opacity:0;
-}
+        .btn-buy:hover {
+            background: #fff;
+            color: #000;
+        }
 
-@keyframes carAnim{
-    0%{
-        opacity:0;
-        transform:translateY(-50%) scale(0.7) rotate(0deg);
-    }
-    50%{
-        opacity:1;
-        transform:translateY(-70%) scale(1) rotate(-10deg);
-    }
-    100%{
-        opacity:1;
-        transform:translateY(-65%) scale(1) rotate(-12deg);
-    }
-}
+        /* Плавный скролл всей страницы */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
 
-.card:hover .car{
-    animation:carAnim 0.9s ease forwards;
-}
+    <header>
+        <h1 data-aos="fade-up" data-aos-duration="1500">APEX SHOP</h1>
+        <p data-aos="fade-up" data-aos-duration="2000">Лимитированные модели и премиум упаковка</p>
+        <a href="#shop" class="btn-main" data-aos="zoom-in" data-aos-delay="500">Смотреть каталог</a>
+    </header>
 
-.card:hover .shadow{
-    opacity:1;
-}
+    <div class="container" id="shop">
+        <div class="shop-grid">
+            
+            <div class="product-card" data-aos="fade-up">
+                <div class="product-img" style="background: url('ТВОЯ_ССЫЛКА_НА_ФОТО_1') center/cover;"></div>
+                <h3>Red Bull RB21-H</h3>
+                <span class="price">15 000 ₴</span>
+                <button class="btn-buy">В корзину</button>
+            </div>
 
-.card:hover .art
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="product-img" style="background: url('ТВОЯ_ССЫЛКА_НА_ФОТО_2') center/cover;"></div>
+                <h3>Branded Box v1</h3>
+                <span class="price">500 ₴</span>
+                <button class="btn-buy">В корзину</button>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="product-img" style="background: url('ТВОЯ_ССЫЛКА_НА_ФОТО_3') center/cover;"></div>
+                <h3>Custom Stencil</h3>
+                <span class="price">1 200 ₴</span>
+                <button class="btn-buy">В корзину</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true /* Анимация проигрывается один раз при появлении */
+        });
+    </script>
+
+</body>
+</html>
