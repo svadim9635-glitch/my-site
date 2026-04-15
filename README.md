@@ -32,13 +32,17 @@ body{
 .logo span{
     opacity:0;
     transform:translateY(20px);
+}
+
+/* анимация */
+.logo.show span{
     animation:letterIn 0.8s ease forwards;
 }
 
-.logo span:nth-child(1){animation-delay:0s;}
-.logo span:nth-child(2){animation-delay:0.15s;}
-.logo span:nth-child(3){animation-delay:0.3s;}
-.logo span:nth-child(4){animation-delay:0.45s;}
+.logo.show span:nth-child(1){animation-delay:0s;}
+.logo.show span:nth-child(2){animation-delay:0.15s;}
+.logo.show span:nth-child(3){animation-delay:0.3s;}
+.logo.show span:nth-child(4){animation-delay:0.45s;}
 
 @keyframes letterIn{
     0%{opacity:0; transform:translateY(25px); filter:blur(10px);}
@@ -213,26 +217,29 @@ h3{margin:10px;}
 const logoText="APEX";
 const logo=document.getElementById("logo");
 
-logoText.split("").forEach((l,i)=>{
+logoText.split("").forEach(l=>{
     const span=document.createElement("span");
     span.textContent=l;
     logo.appendChild(span);
 });
 
+/* запускаем ОДИН РАЗ */
+window.addEventListener("load",()=>{
+    setTimeout(()=>logo.classList.add("show"),50);
+});
+
 /* ================= PRODUCTS ================= */
-const cars=[
-"BMW M3 Art","Nissan GTR Art","Mercedes AMG Art",
-"Toyota Supra Art","Audi RS6 Art","Lambo Huracan",
-"Porsche 911","Ferrari F8","McLaren 720S","Bugatti Chiron"
-];
-
-const grid=document.getElementById("grid");
-
-const products=cars.map((name,i)=>({
-    title:name,
+const products = Array.from({length:10}, (_,i)=>({
+    title: [
+        "BMW M3 Art","Nissan GTR Art","Mercedes AMG Art",
+        "Toyota Supra Art","Audi RS6 Art","Lambo Huracan",
+        "Porsche 911","Ferrari F8","McLaren 720S","Bugatti Chiron"
+    ][i],
     price:`$${49+i*5}`,
     img:`https://picsum.photos/600/400?random=${i}`
 }));
+
+const grid=document.getElementById("grid");
 
 products.forEach((p,i)=>{
 grid.innerHTML+=`
