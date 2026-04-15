@@ -7,7 +7,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        /* Убираем лишнее сверху */
+        /* Чистка мусора GitHub сверху */
         header, hr, .header-top {
             display: none !important;
         }
@@ -25,22 +25,33 @@
             overflow-x: hidden;
         }
 
-        /* Заголовок APEX */
+        /* --- НОВОЕ ЛОГО (Картинка вместо текста) --- */
         .title {
             position: fixed;
             top: 15px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: 5px;
+            /* Размер логотипа */
+            height: 80px; 
+            width: auto;
             z-index: 9999;
             opacity: 0;
+            /* Делаем буквы белыми и убираем фон */
+            filter: invert(1) contrast(1.5) brightness(1.2);
+            mix-blend-mode: screen;
         }
 
         @keyframes titleAnim {
-            0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            0% { 
+                opacity: 0; 
+                transform: translateX(-50%) translateY(-20px) scale(0.9); 
+                filter: invert(1) blur(10px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateX(-50%) translateY(0) scale(1); 
+                filter: invert(1) blur(0);
+            }
         }
 
         .title.animate {
@@ -52,31 +63,25 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
-            padding: 120px 40px 60px;
+            padding: 150px 40px 60px; /* Отступ под логотип */
         }
 
-        /* КАРТОЧКА ТОВАРА */
+        /* Твои закрепленные карточки с анимацией */
         .product-card {
             background: #111;
             border-radius: 15px;
             padding: 20px;
             text-align: center;
             cursor: pointer;
-            position: relative;
-            z-index: 1;
-            
-            /* ЖЕСТКАЯ ПЛАВНОСТЬ ДЛЯ ПРОВЕРКИ */
-            transition: all 0.3s ease-in-out !important;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        /* ФИНАЛЬНЫЙ ЭФФЕКТ ПОДСВЕЧИВАНИЯ И УВЕЛИЧЕНИЯ */
         .product-card:hover {
-            transform: scale(1.08) !important; /* Увеличение */
-            z-index: 10;
-            background: #1c1c1c !important; /* Подсветка фона */
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2) !important; /* Белое свечение */
-            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+            transform: scale(1.06);
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
         }
 
         .product-img {
@@ -102,7 +107,7 @@
 </head>
 <body>
 
-    <div class="title" id="title">APEX</div>
+    <img src="https://i.postimg.cc/sGr0Q65G/APEX-LOGO-FULL.jpg" class="title" id="title" alt="APEX">
 
     <div class="grid">
         <div class="product-card" data-aos="fade-up" data-aos-delay="200">
