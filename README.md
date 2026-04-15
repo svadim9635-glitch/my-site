@@ -13,27 +13,49 @@ body{
     color:white;
 }
 
-/* ===== LOGO ===== */
+/* ===== STATIC LOGO ===== */
 .logo{
     position:fixed;
-    top:20px;
+    top:18px;
+    left:20px;
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:6px;
+    z-index:9999;
+    opacity:0.9;
+}
+
+/* ===== ANIMATED TITLE (APEX) ===== */
+.title{
+    position:fixed;
+    top:18px;
     left:50%;
     transform:translateX(-50%);
     font-size:60px;
     font-weight:900;
     letter-spacing:12px;
-    z-index:9999;
+    z-index:9998;
     opacity:0;
 }
 
-@keyframes logoAnim{
-    0%{opacity:0; transform:translateX(-50%) translateY(-20px) scale(0.8); filter:blur(10px);}
-    50%{opacity:1; filter:blur(0);}
-    100%{opacity:1; transform:translateX(-50%) translateY(0) scale(1);}
+@keyframes titleAnim{
+    0%{
+        opacity:0;
+        transform:translateX(-50%) translateY(-20px) scale(0.85);
+        filter:blur(10px);
+    }
+    50%{
+        opacity:1;
+        filter:blur(0);
+    }
+    100%{
+        opacity:1;
+        transform:translateX(-50%) translateY(0) scale(1);
+    }
 }
 
-.logo.animate{
-    animation:logoAnim 2.5s ease-out;
+.title.animate{
+    animation:titleAnim 2.5s ease-out;
 }
 
 /* ===== BACK BUTTON ===== */
@@ -42,13 +64,14 @@ body{
     top:20px;
     left:20px;
     z-index:9999;
+    margin-top:40px;
     padding:10px 15px;
     background:rgba(0,0,0,0.6);
     border:1px solid rgba(255,255,255,0.2);
     color:white;
     border-radius:10px;
     cursor:pointer;
-    backdrop-filter: blur(8px);
+    backdrop-filter:blur(8px);
 }
 
 /* ===== GRID ===== */
@@ -59,7 +82,7 @@ body{
     padding:120px 40px 60px;
 }
 
-/* ===== CARD (картина на столе) ===== */
+/* ===== CARD ===== */
 .card{
     background:#111;
     border-radius:12px;
@@ -73,31 +96,30 @@ body{
     outline:2px solid rgba(255,255,255,0.15);
 }
 
-/* стол */
+/* ===== TABLE (черный стол) ===== */
 .table{
     height:220px;
     background:
-    linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
     url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
     background-size:cover;
     position:relative;
-    overflow:hidden;
 }
 
-/* рамка (картина) */
+/* FRAME */
 .frame{
     position:absolute;
     width:70%;
     height:70%;
     top:15%;
     left:15%;
-    border:4px solid rgba(255,255,255,0.3);
-    border-radius:6px;
+    border:3px solid rgba(255,255,255,0.25);
+    border-radius:8px;
     overflow:hidden;
     box-shadow:0 10px 30px rgba(0,0,0,0.6);
 }
 
-/* фон картины */
+/* ART */
 .art{
     width:100%;
     height:100%;
@@ -105,17 +127,17 @@ body{
     transition:0.5s;
 }
 
-/* машинка */
+/* CAR */
 .car{
     position:absolute;
-    width:60%;
-    left:20%;
+    width:65%;
+    left:18%;
     top:55%;
-    transform:translateY(-50%) scale(0.8);
     opacity:0;
+    transform:translateY(-50%) scale(0.8);
 }
 
-/* тень */
+/* SHADOW */
 .shadow{
     position:absolute;
     width:60%;
@@ -128,7 +150,7 @@ body{
 }
 
 /* ===== ANIMATION ===== */
-@keyframes carMove{
+@keyframes carAnim{
     0%{
         opacity:0;
         transform:translateY(-50%) scale(0.7) rotate(0deg);
@@ -144,7 +166,7 @@ body{
 }
 
 .card:hover .car{
-    animation:carMove 0.9s ease-out forwards;
+    animation:carAnim 0.9s ease forwards;
 }
 
 .card:hover .shadow{
@@ -152,92 +174,78 @@ body{
 }
 
 .card:hover .art{
-    filter:brightness(0.4);
+    filter:brightness(0.35);
     transform:scale(1.1);
 }
 
+/* reset */
 .card:not(:hover) .car{
-    animation:none;
     opacity:0;
+    animation:none;
 }
 
-/* text */
-h3{
-    margin:10px;
-}
-.price{
-    margin:10px;
-    color:#00ff88;
-}
+/* TEXT */
+h3{margin:10px;}
+.price{margin:10px;color:#00ff88;}
 </style>
 </head>
 
 <body>
 
-<div class="logo" id="logo">APEX</div>
+<div class="logo">APEX</div>
+<div class="title" id="title">APEX</div>
+
 <button class="back" onclick="scrollToTop()">← Back</button>
 
-<div class="grid">
+<div class="grid" id="grid"></div>
 
-<!-- 10 ОБЪЯВЛЕНИЙ -->
 <script>
-const data = [
-"BMW M3 Art",
-"Nissan GTR Art",
-"Mercedes AMG Art",
-"Toyota Supra Art",
-"Audi RS6 Art",
-"Lamborghini Huracan Art",
-"Porsche 911 Art",
-"Ferrari F8 Art",
-"McLaren 720S Art",
-"Bugatti Chiron Art"
+const cars = [
+"BMW M3 Art","Nissan GTR Art","Mercedes AMG Art",
+"Toyota Supra Art","Audi RS6 Art","Lambo Huracan",
+"Porsche 911","Ferrari F8","McLaren 720S","Bugatti Chiron"
 ];
 
-const grid = document.currentScript.parentElement;
+const grid = document.getElementById("grid");
 
-data.forEach((name,i)=>{
-grid.innerHTML += `
-<div class="card">
-    <div class="table">
-        <div class="frame">
-            <img class="art" src="https://picsum.photos/600/400?random=${i}">
-            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
-            <div class="shadow"></div>
+/* create 10 cards */
+cars.forEach((name,i)=>{
+    grid.innerHTML += `
+    <div class="card">
+        <div class="table">
+            <div class="frame">
+                <img class="art" src="https://picsum.photos/600/400?random=${i}">
+                <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
+                <div class="shadow"></div>
+            </div>
         </div>
-    </div>
-    <h3>${name}</h3>
-    <div class="price">$${49+i*5}</div>
-</div>
-`;
+        <h3>${name}</h3>
+        <div class="price">$${49+i*5}</div>
+    </div>`;
 });
-</script>
 
-</div>
-
-<script>
-/* LOGO ANIMATION */
-function playLogo(){
-    const logo=document.getElementById("logo");
-    logo.classList.remove("animate");
-    void logo.offsetWidth;
-    logo.classList.add("animate");
+/* ===== TITLE ANIMATION ===== */
+function playTitle(){
+    const t=document.getElementById("title");
+    t.classList.remove("animate");
+    void t.offsetWidth;
+    t.classList.add("animate");
 }
 
-window.addEventListener("load",playLogo);
+window.addEventListener("load",playTitle);
 
-/* SCROLL BACK TOP */
+/* scroll back top */
 function scrollToTop(){
-    window.scrollTo({top:0, behavior:"smooth"});
+    window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* повтор логотипа при возврате вверх */
+/* repeat animation when back to top */
 let last=0;
 window.addEventListener("scroll",()=>{
-if(window.scrollY<80 && last>200){
-playLogo();
-}
-last=window.scrollY;
+    if(window.scrollY<80 && last>200){
+        playTitle();
+    }
+    last=window.scrollY;
 });
 </script>
 
