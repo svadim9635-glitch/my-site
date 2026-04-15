@@ -6,67 +6,84 @@
 <title>APEX STORE</title>
 
 <style>
-body {
-  <div class="title-container" id="title">
-    <img src="https://i.ibb.co/DP6gCNSy/image.jpg" alt="APEX">
+<body>
+
+<div class="title-container" id="title">
+    <img src="https://i.postimg.cc/sGr0Q65G/APEX-LOGO-FULL.jpg" alt="APEX">
 </div>
-}
 
-/* ===== LOGO (статичное после анимации) ===== */
-.logo{
-    position:fixed;
-    top:15px;
-    left:20px;
-    font-size:28px;
-    font-weight:900;
-    letter-spacing:6px;
-    z-index:9999;
-    opacity:0.9;
-}
+<div class="logo">APEX</div>
 
-/* Контейнер, который центрирует и позволяет уезжать вверх */
+<div id="home">
+    <div class="grid" id="grid"></div>
+</div>
+
+<style>
+/* ... (здесь твой старый CSS для body, grid, card, carAnim, etc.) ... */
+
+/* ————— НОВЫЙ CSS ДЛЯ ПОЛНОГО ЛОГОТИПА ————— */
 .title-container {
+    /* Чтобы уезжало вверх при скролле */
     position: absolute; 
-    top: 30px;
+    top: 50px; /* Отступ от самого верха */
     left: 0;
-    width: 100%;
+    width: 100%; /* Занимаем всю ширину */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    opacity: 0; /* Изначально скрыт */
-    pointer-events: none;
+    justify-content: center; /* Центрируем */
+    z-index: 10000; /* Самый высокий слой */
+    opacity: 0;
 }
 
-/* Сама картинка APEX */
 .title-container img {
-    width: 500px; /* ТУТ МЕНЯЙ РАЗМЕР: больше или меньше */
+    /* Крупный размер (можешь менять), но не больше экрана */
+    width: 60%; 
+    max-width: 600px; 
     height: auto;
     display: block;
     
-    /* Магия: убираем белый фон и делаем буквы белыми */
-    filter: invert(1) contrast(2) brightness(1.2);
-    mix-blend-mode: screen;
+    /* Магия прозрачности и белого цвета */
+    filter: invert(1) contrast(1.5) brightness(1.2);
+    mix-blend-mode: screen; 
 }
 
-/* Анимация появления */
+/* Эффектная анимация: появление из тумана и вспышки */
 @keyframes apexAppearance {
     0% {
         opacity: 0;
-        transform: translateY(-20px);
-        filter: invert(1) blur(15px);
+        transform: scale(1.2) translateY(-20px);
+        filter: invert(1) blur(20px) brightness(3);
+    }
+    30% {
+        opacity: 1;
+        filter: invert(1) blur(5px) brightness(1.5);
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
-        filter: invert(1) blur(0);
+        transform: scale(1) translateY(0);
+        filter: invert(1) blur(0) brightness(1.2);
     }
 }
 
 .title-container.animate {
-    animation: apexAppearance 2s ease-out forwards;
+    animation: apexAppearance 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+</style>
 
+<script>
+/* ... (твой старый скрипт для генерации карточек, openProduct, etc.) ... */
+
+/* ————— ЗАПУСК АНИМАЦИИ НА ВСЮ СТРУКТУРУ ————— */
+window.addEventListener("load", () => {
+    // Находим новый контейнер целиком
+    const t = document.getElementById("title");
+    if (t) {
+        // Добавляем класс, и анимация запускается
+        t.classList.add("animate"); 
+    }
+});
+</script>
+
+</body>
 /* ===== BACK BUTTON ===== */
 .back{
     position:fixed;
