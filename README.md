@@ -27,44 +27,43 @@ body{
 
 /* ===== BIG TITLE ===== */
 .title{
- position: fixed;
-    top: 50%;
+position: fixed;
+    top: 15px;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    width: 600px; /* Размер логотипа */
-    max-width: 90%;
-    z-index: 9999;
-    opacity: 0;
-    pointer-events: none;
+    transform: translateX(-50%);
+    height: 80px; /* Размер надписи */
+    width: auto;
+    z-index: 9998;
+    
+    /* Магия прозрачности: убираем белый фон, оставляем черные буквы */
+    /* Затем инвертируем их в белый цвет, чтобы они горели на черном фоне */
+    filter: invert(1) contrast(2); 
+    mix-blend-mode: screen; 
+    
+    opacity: 0; /* Изначально скрыт для анимации */
 }
 
-/* анимация ТОЛЬКО при входе */
-@keyframes titleAnim{
-  0% {
+/* Необычная анимация появления: вылет с размытием и "вспышкой" */
+@keyframes apexAppearance {
+    0% {
         opacity: 0;
-        transform: translate(-50%, -55%) scale(0.7);
-        filter: blur(20px) brightness(1.5);
+        transform: translateX(-50%) scale(2); /* Летит издалека */
+        filter: invert(1) blur(20px) brightness(5); /* Ослепительная вспышка */
     }
-    30% {
+    40% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(0.8);
-        filter: blur(0px) brightness(1);
-    }
-    70% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(0.85);
-        filter: blur(0px);
+        filter: invert(1) blur(5px) brightness(2);
     }
     100% {
-        opacity: 0;
-        transform: translate(-50%, -45%) scale(1);
-        filter: blur(10px);
-        visibility: hidden;
+        opacity: 1;
+        transform: translateX(-50%) scale(1); /* Встает на место */
+        filter: invert(1) blur(0) brightness(1.2); /* Остается четким и ярким */
     }
 }
 
 .title.animate{
-animation: titleAnim 3.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+/* Анимация длится 2 секунды и ОСТАЕТСЯ в конечном состоянии (forwards) */
+    animation: apexAppearance 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ===== BACK BUTTON ===== */
