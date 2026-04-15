@@ -9,72 +9,58 @@
 body{
     margin:0;
     font-family:Arial;
-    background:#0b0b0b;
+    background:#0a0a0a;
     color:white;
+    overflow-x:hidden;
 }
 
-/* ===== STATIC LOGO ===== */
+/* ================= LOGO ================= */
 .logo{
-    position:fixed;
-    top:18px;
-    left:20px;
-    font-size:28px;
-    font-weight:900;
-    letter-spacing:6px;
-    z-index:9999;
-    opacity:0.9;
-}
-
-/* ===== ANIMATED TITLE (APEX) ===== */
-.title{
     position:fixed;
     top:18px;
     left:50%;
     transform:translateX(-50%);
-    font-size:60px;
+    font-size:70px;
     font-weight:900;
-    letter-spacing:12px;
-    z-index:9998;
+    letter-spacing:14px;
+    z-index:9999;
+    display:flex;
+    gap:5px;
+}
+
+/* буквы */
+.logo span{
     opacity:0;
+    transform:translateY(20px);
+    animation:letterIn 0.8s ease forwards;
 }
 
-@keyframes titleAnim{
-    0%{
-        opacity:0;
-        transform:translateX(-50%) translateY(-20px) scale(0.85);
-        filter:blur(10px);
-    }
-    50%{
-        opacity:1;
-        filter:blur(0);
-    }
-    100%{
-        opacity:1;
-        transform:translateX(-50%) translateY(0) scale(1);
-    }
+.logo span:nth-child(1){animation-delay:0s;}
+.logo span:nth-child(2){animation-delay:0.15s;}
+.logo span:nth-child(3){animation-delay:0.3s;}
+.logo span:nth-child(4){animation-delay:0.45s;}
+
+@keyframes letterIn{
+    0%{opacity:0; transform:translateY(25px); filter:blur(10px);}
+    100%{opacity:1; transform:translateY(0); filter:blur(0);}
 }
 
-.title.animate{
-    animation:titleAnim 2.5s ease-out;
-}
-
-/* ===== BACK BUTTON ===== */
+/* ================= BACK BUTTON ================= */
 .back{
     position:fixed;
     top:20px;
     left:20px;
     z-index:9999;
-    margin-top:40px;
     padding:10px 15px;
     background:rgba(0,0,0,0.6);
     border:1px solid rgba(255,255,255,0.2);
-    color:white;
     border-radius:10px;
     cursor:pointer;
     backdrop-filter:blur(8px);
+    color:white;
 }
 
-/* ===== GRID ===== */
+/* ================= GRID ================= */
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -82,21 +68,21 @@ body{
     padding:120px 40px 60px;
 }
 
-/* ===== CARD ===== */
+/* ================= CARD ================= */
 .card{
     background:#111;
-    border-radius:12px;
+    border-radius:14px;
     overflow:hidden;
     cursor:pointer;
     transition:0.3s;
 }
 
 .card:hover{
-    transform:scale(1.03);
+    transform:scale(1.04);
     outline:2px solid rgba(255,255,255,0.15);
 }
 
-/* ===== TABLE (черный стол) ===== */
+/* ===== TABLE ===== */
 .table{
     height:220px;
     background:
@@ -109,14 +95,14 @@ body{
 /* FRAME */
 .frame{
     position:absolute;
-    width:70%;
-    height:70%;
-    top:15%;
-    left:15%;
+    width:72%;
+    height:72%;
+    top:14%;
+    left:14%;
     border:3px solid rgba(255,255,255,0.25);
-    border-radius:8px;
+    border-radius:10px;
     overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    box-shadow:0 10px 30px rgba(0,0,0,0.7);
 }
 
 /* ART */
@@ -134,7 +120,7 @@ body{
     left:18%;
     top:55%;
     opacity:0;
-    transform:translateY(-50%) scale(0.8);
+    transform:translateY(-50%) scale(0.75);
 }
 
 /* SHADOW */
@@ -149,15 +135,15 @@ body{
     opacity:0;
 }
 
-/* ===== ANIMATION ===== */
+/* ================= CAR ANIMATION ================= */
 @keyframes carAnim{
     0%{
         opacity:0;
         transform:translateY(-50%) scale(0.7) rotate(0deg);
     }
-    50%{
+    60%{
         opacity:1;
-        transform:translateY(-70%) scale(1) rotate(-10deg);
+        transform:translateY(-75%) scale(1) rotate(-10deg);
     }
     100%{
         opacity:1;
@@ -178,10 +164,21 @@ body{
     transform:scale(1.1);
 }
 
-/* reset */
 .card:not(:hover) .car{
     opacity:0;
     animation:none;
+}
+
+/* ================= PRODUCT ================= */
+.product{
+    display:none;
+    padding:120px 40px;
+}
+
+.gallery img{
+    width:220px;
+    border-radius:10px;
+    margin:5px;
 }
 
 /* TEXT */
@@ -192,61 +189,84 @@ h3{margin:10px;}
 
 <body>
 
-<div class="logo">APEX</div>
-<div class="title" id="title">APEX</div>
+<!-- LOGO -->
+<div class="logo" id="logo"></div>
 
-<button class="back" onclick="scrollToTop()">← Back</button>
+<!-- BACK -->
+<button class="back" onclick="goBack()">← Back</button>
 
+<!-- HOME -->
+<div id="home">
 <div class="grid" id="grid"></div>
+</div>
+
+<!-- PRODUCT -->
+<div id="product" class="product">
+<h1 id="pTitle"></h1>
+<p id="pPrice"></p>
+<div class="gallery" id="gallery"></div>
+</div>
 
 <script>
-const cars = [
+
+/* ================= LOGO INTRO ================= */
+const logoText="APEX";
+const logo=document.getElementById("logo");
+
+logoText.split("").forEach((l,i)=>{
+    const span=document.createElement("span");
+    span.textContent=l;
+    logo.appendChild(span);
+});
+
+/* ================= PRODUCTS ================= */
+const cars=[
 "BMW M3 Art","Nissan GTR Art","Mercedes AMG Art",
 "Toyota Supra Art","Audi RS6 Art","Lambo Huracan",
 "Porsche 911","Ferrari F8","McLaren 720S","Bugatti Chiron"
 ];
 
-const grid = document.getElementById("grid");
+const grid=document.getElementById("grid");
 
-/* create 10 cards */
-cars.forEach((name,i)=>{
-    grid.innerHTML += `
-    <div class="card">
-        <div class="table">
-            <div class="frame">
-                <img class="art" src="https://picsum.photos/600/400?random=${i}">
-                <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
-                <div class="shadow"></div>
-            </div>
+const products=cars.map((name,i)=>({
+    title:name,
+    price:`$${49+i*5}`,
+    img:`https://picsum.photos/600/400?random=${i}`
+}));
+
+products.forEach((p,i)=>{
+grid.innerHTML+=`
+<div class="card" onclick="openProduct(${i})">
+    <div class="table">
+        <div class="frame">
+            <img class="art" src="${p.img}">
+            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
+            <div class="shadow"></div>
         </div>
-        <h3>${name}</h3>
-        <div class="price">$${49+i*5}</div>
-    </div>`;
+    </div>
+    <h3>${p.title}</h3>
+    <div class="price">${p.price}</div>
+</div>`;
 });
 
-/* ===== TITLE ANIMATION ===== */
-function playTitle(){
-    const t=document.getElementById("title");
-    t.classList.remove("animate");
-    void t.offsetWidth;
-    t.classList.add("animate");
+/* ================= PRODUCT PAGE ================= */
+function openProduct(i){
+    home.style.display="none";
+    product.style.display="block";
+
+    pTitle.innerText=products[i].title;
+    pPrice.innerText=products[i].price;
+
+    gallery.innerHTML=`
+        <img src="${products[i].img}">
+        <img src="https://picsum.photos/600/400?random=${i+20}">
+    `;
 }
 
-window.addEventListener("load",playTitle);
-
-/* scroll back top */
-function scrollToTop(){
-    window.scrollTo({top:0,behavior:"smooth"});
+function goBack(){
+    home.style.display="block";
+    product.style.display="none";
 }
-
-/* repeat animation when back to top */
-let last=0;
-window.addEventListener("scroll",()=>{
-    if(window.scrollY<80 && last>200){
-        playTitle();
-    }
-    last=window.scrollY;
-});
 </script>
 
 </body>
