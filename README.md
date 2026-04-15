@@ -7,12 +7,9 @@
 
 <style>
 body {
-    margin: 0;
-    font-family: Arial;
-    background: #0b0b0b;
-    color: white;
-    /* ГЛАВНОЕ: разрешаем контенту выходить за рамки, чтобы ничего не резалось */
-    overflow-x: hidden; 
+  <div class="title-container" id="title">
+    <img src="https://i.ibb.co/DP6gCNSy/image.jpg" alt="APEX">
+</div>
 }
 
 /* ===== LOGO (статичное после анимации) ===== */
@@ -27,46 +24,47 @@ body {
     opacity:0.9;
 }
 
-/* ===== BIG TITLE ===== */
-.title {
-    /* Чтобы уезжало вверх при скролле */
+/* Контейнер, который центрирует и позволяет уезжать вверх */
+.title-container {
     position: absolute; 
-    top: 30px; 
+    top: 30px;
     left: 0;
-    width: 100%; /* Занимаем всю ширину, чтобы не обрезаться */
+    width: 100%;
     display: flex;
-    justify-content: center; /* Центрируем картинку внутри */
-    z-index: 10000; /* Самый высокий слой, чтобы никто не перекрыл */
-    opacity: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0; /* Изначально скрыт */
     pointer-events: none;
 }
 
-.title img {
-    /* Настраиваешь размер здесь. Сделай 500px или больше для мощи */
-    width: 550px; 
+/* Сама картинка APEX */
+.title-container img {
+    width: 500px; /* ТУТ МЕНЯЙ РАЗМЕР: больше или меньше */
     height: auto;
+    display: block;
     
-    /* Убираем фон и делаем буквы белыми */
-    filter: invert(1) contrast(1.2) brightness(1.2);
+    /* Магия: убираем белый фон и делаем буквы белыми */
+    filter: invert(1) contrast(2) brightness(1.2);
     mix-blend-mode: screen;
 }
 
-/* Анимация: теперь анимируем всё целиком */
+/* Анимация появления */
 @keyframes apexAppearance {
     0% {
         opacity: 0;
-        transform: translateY(-20px) scale(0.95);
-        filter: blur(15px) brightness(2);
+        transform: translateY(-20px);
+        filter: invert(1) blur(15px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0) brightness(1.2);
+        transform: translateY(0);
+        filter: invert(1) blur(0);
     }
 }
 
-.title.animate {
-    animation: apexAppearance 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.title-container.animate {
+    animation: apexAppearance 2s ease-out forwards;
 }
 
 /* ===== BACK BUTTON ===== */
