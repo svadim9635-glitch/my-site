@@ -6,11 +6,13 @@
 <title>APEX STORE</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#0b0b0b;
-    color:white;
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0b0b0b;
+    color: white;
+    /* ГЛАВНОЕ: разрешаем контенту выходить за рамки, чтобы ничего не резалось */
+    overflow-x: hidden; 
 }
 
 /* ===== LOGO (статичное после анимации) ===== */
@@ -26,43 +28,45 @@ body{
 }
 
 /* ===== BIG TITLE ===== */
-.title{
-position: absolute; /* Теперь логотип уезжает при скролле */
-    top: 40px; /* Отступ от самого верха страницы */
-    left: 50%;
-    transform: translateX(-50%);
-    
-    /* Управляем размером через ширину. 
-       Поставь 400px или 500px, чтобы надпись была крупной */
-    width: 450px; 
-    height: auto;
-    
-    z-index: 9998;
-    
-    /* Сохраняем магию прозрачности фона и белых букв */
-    filter: invert(1) contrast(1.2) brightness(1.2); 
-    mix-blend-mode: screen; 
-    
+.title {
+    /* Чтобы уезжало вверх при скролле */
+    position: absolute; 
+    top: 30px; 
+    left: 0;
+    width: 100%; /* Занимаем всю ширину, чтобы не обрезаться */
+    display: flex;
+    justify-content: center; /* Центрируем картинку внутри */
+    z-index: 10000; /* Самый высокий слой, чтобы никто не перекрыл */
     opacity: 0;
     pointer-events: none;
 }
 
-/* Анимация появления (чуть подправил, чтобы она была еще эффектнее на месте) */
+.title img {
+    /* Настраиваешь размер здесь. Сделай 500px или больше для мощи */
+    width: 550px; 
+    height: auto;
+    
+    /* Убираем фон и делаем буквы белыми */
+    filter: invert(1) contrast(1.2) brightness(1.2);
+    mix-blend-mode: screen;
+}
+
+/* Анимация: теперь анимируем всё целиком */
 @keyframes apexAppearance {
     0% {
         opacity: 0;
-        transform: translateX(-50%) scale(1.1);
-        filter: invert(1) blur(15px) brightness(3);
+        transform: translateY(-20px) scale(0.95);
+        filter: blur(15px) brightness(2);
     }
     100% {
         opacity: 1;
-        transform: translateX(-50%) scale(1);
-        filter: invert(1) blur(0) brightness(1.2);
+        transform: translateY(0) scale(1);
+        filter: blur(0) brightness(1.2);
     }
 }
 
-.title.animate{
-animation: apexAppearance 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.title.animate {
+    animation: apexAppearance 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ===== BACK BUTTON ===== */
