@@ -7,7 +7,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        /* Убираем лишнее сверху (линии и надписи GitHub) */
+        /* Убираем лишнее сверху */
         header, hr, .header-top {
             display: none !important;
         }
@@ -55,24 +55,28 @@
             padding: 120px 40px 60px;
         }
 
-        /* КАРТОЧКА ТОВАРА С АНИМАЦИЕЙ ПРИ НАВЕДЕНИИ */
+        /* КАРТОЧКА ТОВАРА */
         .product-card {
             background: #111;
             border-radius: 15px;
             padding: 20px;
             text-align: center;
-            /* Плавность всех изменений (0.3 секунды) */
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, background 0.3s ease;
             cursor: pointer;
+            position: relative;
+            z-index: 1;
+            
+            /* ЖЕСТКАЯ ПЛАВНОСТЬ ДЛЯ ПРОВЕРКИ */
+            transition: all 0.3s ease-in-out !important;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Эффект при наведении курсора */
+        /* ФИНАЛЬНЫЙ ЭФФЕКТ ПОДСВЕЧИВАНИЯ И УВЕЛИЧЕНИЯ */
         .product-card:hover {
-            transform: translateY(-10px); /* Карточка приподнимается */
-            background: #1a1a1a; /* Цвет становится чуть светлее */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Добавляем мягкую тень */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Проявляется тонкая рамка */
+            transform: scale(1.08) !important; /* Увеличение */
+            z-index: 10;
+            background: #1c1c1c !important; /* Подсветка фона */
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2) !important; /* Белое свечение */
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
         }
 
         .product-img {
@@ -80,12 +84,6 @@
             height: 250px;
             border-radius: 10px;
             margin-bottom: 15px;
-            transition: transform 0.5s ease; /* Для плавности картинки */
-        }
-
-        /* Небольшое увеличение картинки внутри при наведении */
-        .product-card:hover .product-img {
-            transform: scale(1.02);
         }
 
         h3 { margin-bottom: 10px; }
@@ -99,12 +97,6 @@
             border-radius: 20px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-buy:hover {
-            background: #00ff88;
-            transform: scale(1.05);
         }
     </style>
 </head>
@@ -132,7 +124,8 @@
     <script>
         AOS.init();
         window.addEventListener("load", () => {
-            document.getElementById("title").classList.add("animate");
+            const t = document.getElementById("title");
+            if (t) t.classList.add("animate");
         });
     </script>
 </body>
