@@ -9,53 +9,66 @@
 body{
     margin:0;
     font-family:Arial;
-    background:#0a0a0a;
+    background:#0b0b0b;
     color:white;
 }
 
-/* ===== LOGO ===== */
+/* ===== LOGO (статичное после анимации) ===== */
 .logo{
     position:fixed;
-    top:20px;
+    top:15px;
+    left:20px;
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:6px;
+    z-index:9999;
+    opacity:0.9;
+}
+
+/* ===== BIG TITLE ===== */
+.title{
+    position:fixed;
+    top:15px;
     left:50%;
     transform:translateX(-50%);
-    font-size:70px;
+    font-size:60px;
     font-weight:900;
-    letter-spacing:14px;
-    display:flex;
-    z-index:9999;
-}
-
-.logo span{
+    letter-spacing:12px;
+    z-index:9998;
     opacity:0;
-    transform:translateY(20px);
-    animation:logoAnim 0.8s ease forwards;
 }
 
-.logo span:nth-child(1){animation-delay:0s;}
-.logo span:nth-child(2){animation-delay:0.1s;}
-.logo span:nth-child(3){animation-delay:0.2s;}
-.logo span:nth-child(4){animation-delay:0.3s;}
-
-@keyframes logoAnim{
-    to{
+/* анимация ТОЛЬКО при входе */
+@keyframes titleAnim{
+    0%{
+        opacity:0;
+        transform:translateX(-50%) translateY(-20px) scale(0.8);
+        filter:blur(10px);
+    }
+    100%{
         opacity:1;
-        transform:translateY(0);
+        transform:translateX(-50%) translateY(0) scale(1);
+        filter:blur(0);
     }
 }
 
-/* ===== BACK ===== */
+.title.animate{
+    animation:titleAnim 2.5s ease-out forwards;
+}
+
+/* ===== BACK BUTTON ===== */
 .back{
     position:fixed;
     top:20px;
     left:20px;
-    padding:10px 15px;
-    background:#111;
-    border:1px solid #333;
-    color:white;
-    border-radius:8px;
-    cursor:pointer;
     z-index:9999;
+    padding:10px 15px;
+    background:rgba(0,0,0,0.6);
+    border:1px solid rgba(255,255,255,0.2);
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+    backdrop-filter:blur(8px);
 }
 
 /* ===== GRID ===== */
@@ -63,7 +76,7 @@ body{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
-    padding:120px 40px;
+    padding:120px 40px 60px;
 }
 
 /* ===== CARD ===== */
@@ -76,13 +89,16 @@ body{
 }
 
 .card:hover{
-    transform:scale(1.05);
+    transform:scale(1.03);
+    outline:2px solid rgba(255,255,255,0.15);
 }
 
-/* TABLE */
+/* ===== TABLE ===== */
 .table{
-    height:200px;
-    background:url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
+    height:220px;
+    background:
+    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
     background-size:cover;
     position:relative;
 }
@@ -94,16 +110,18 @@ body{
     height:70%;
     top:15%;
     left:15%;
-    border:2px solid white;
+    border:3px solid rgba(255,255,255,0.25);
+    border-radius:8px;
     overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.6);
 }
 
-/* IMAGE */
+/* ART */
 .art{
     width:100%;
     height:100%;
     object-fit:cover;
-    transition:0.4s;
+    transition:0.5s;
 }
 
 /* CAR */
@@ -113,13 +131,14 @@ body{
     left:18%;
     top:55%;
     opacity:0;
+    transform:translateY(-50%) scale(0.8);
 }
 
 /* SHADOW */
 .shadow{
     position:absolute;
     width:60%;
-    height:10px;
+    height:15px;
     left:20%;
     bottom:10px;
     background:black;
@@ -129,12 +148,22 @@ body{
 
 /* ANIMATION */
 @keyframes carAnim{
-    0%{opacity:0; transform:translateY(0) scale(0.7);}
-    100%{opacity:1; transform:translateY(-30px) scale(1);}
+    0%{
+        opacity:0;
+        transform:translateY(-50%) scale(0.7) rotate(0deg);
+    }
+    50%{
+        opacity:1;
+        transform:translateY(-70%) scale(1) rotate(-10deg);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(-65%) scale(1) rotate(-12deg);
+    }
 }
 
 .card:hover .car{
-    animation:carAnim 0.6s forwards;
+    animation:carAnim 0.9s ease forwards;
 }
 
 .card:hover .shadow{
@@ -142,10 +171,11 @@ body{
 }
 
 .card:hover .art{
-    filter:brightness(0.4);
+    filter:brightness(0.35);
+    transform:scale(1.1);
 }
 
-/* ===== PRODUCT ===== */
+/* ===== PRODUCT PAGE ===== */
 .product{
     display:none;
     padding:120px 40px;
@@ -153,56 +183,54 @@ body{
 
 .gallery img{
     width:200px;
-    margin:5px;
+    border-radius:10px;
 }
+
+/* TEXT */
+h3{margin:10px;}
+.price{margin:10px;color:#00ff88;}
 </style>
 </head>
 
 <body>
 
-<div class="logo" id="logo"></div>
+<div class="logo">APEX</div>
+<div class="title" id="title">APEX</div>
+
 <button class="back" onclick="goBack()">← Back</button>
 
+<!-- HOME -->
 <div id="home">
 <div class="grid" id="grid"></div>
 </div>
 
+<!-- PRODUCT -->
 <div id="product" class="product">
 <h1 id="pTitle"></h1>
 <p id="pPrice"></p>
-<div id="gallery" class="gallery"></div>
+<div class="gallery" id="gallery"></div>
 </div>
 
 <script>
 
-/* LOGO */
-const logoText="APEX";
-const logo=document.getElementById("logo");
+const cars = [
+"BMW M3 Art","Nissan GTR Art","Mercedes AMG Art",
+"Toyota Supra Art","Audi RS6 Art","Lambo Huracan",
+"Porsche 911","Ferrari F8","McLaren 720S","Bugatti Chiron"
+];
 
-logoText.split("").forEach(l=>{
-    const span=document.createElement("span");
-    span.textContent=l;
-    logo.appendChild(span);
-});
+const grid = document.getElementById("grid");
 
-/* PRODUCTS (РОВНО 10) */
-const products=[
-"BMW M3","GTR","AMG","SUPRA","RS6",
-"HURACAN","911","F8","720S","CHIRON"
-].map((name,i)=>({
+/* ===== DATA ===== */
+const products = cars.map((name,i)=>({
     title:name,
-    price:`$${50+i*5}`,
-    img:`https://picsum.photos/600/400?${i}`
+    price:`$${49+i*5}`,
+    img:`https://picsum.photos/600/400?random=${i}`
 }));
 
-const grid=document.getElementById("grid");
-
-/* ВАЖНО: чистим */
-grid.innerHTML="";
-
-/* РЕНДЕР 10 КАРТОЧЕК */
+/* ===== CREATE CARDS ===== */
 products.forEach((p,i)=>{
-grid.innerHTML+=`
+grid.innerHTML += `
 <div class="card" onclick="openProduct(${i})">
     <div class="table">
         <div class="frame">
@@ -216,7 +244,7 @@ grid.innerHTML+=`
 </div>`;
 });
 
-/* PRODUCT PAGE */
+/* ===== OPEN PRODUCT ===== */
 function openProduct(i){
     home.style.display="none";
     product.style.display="block";
@@ -225,15 +253,22 @@ function openProduct(i){
     pPrice.innerText=products[i].price;
 
     gallery.innerHTML=`
-    <img src="${products[i].img}">
-    <img src="https://picsum.photos/600/400?${i+20}">
+        <img src="${products[i].img}">
+        <img src="https://picsum.photos/600/400?random=${i+10}">
     `;
 }
 
+/* ===== BACK ===== */
 function goBack(){
     home.style.display="block";
     product.style.display="none";
 }
+
+/* ===== TITLE ANIMATION (ONCE ONLY) ===== */
+window.addEventListener("load",()=>{
+    const t=document.getElementById("title");
+    t.classList.add("animate"); // один раз при входе
+});
 
 </script>
 
