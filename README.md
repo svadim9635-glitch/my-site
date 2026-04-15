@@ -3,233 +3,192 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APEX STORE</title>
+<title>APEX SHOP</title>
 
 <style>
 body{
-margin:0;
-font-family:Arial;
-background:#0a0a0a;
-color:white;
+    margin:0;
+    font-family:Arial;
+    background:#0f0f0f;
+    color:white;
 }
 
-.top{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-between;
-padding:12px 20px;
-background:rgba(0,0,0,0.7);
-backdrop-filter:blur(10px);
-z-index:9999;
+/* ===== BACK BUTTON (фиксированный угол) ===== */
+.back-btn{
+    position:fixed;
+    top:20px;
+    left:20px;
+    z-index:9999;
+    background:rgba(0,0,0,0.6);
+    border:1px solid rgba(255,255,255,0.2);
+    color:white;
+    padding:10px 15px;
+    border-radius:10px;
+    cursor:pointer;
+    backdrop-filter: blur(8px);
 }
 
-.logo{font-weight:900;font-size:22px;}
-
-.menu button{
-background:#111;
-border:1px solid #333;
-color:white;
-padding:8px 10px;
-margin-left:5px;
-border-radius:8px;
-cursor:pointer;
-}
-
-section{display:none;padding:100px 30px;}
-.active{display:block;}
-
+/* ===== GRID ===== */
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:60px;
 }
 
+/* ===== CARD ===== */
 .card{
-background:#111;
-border-radius:12px;
-overflow:hidden;
-cursor:pointer;
-transition:0.3s;
-}
-.card:hover{transform:scale(1.03);}
-
-.card img{
-width:100%;
-height:180px;
-object-fit:cover;
+    background:#1b1b1b;
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:0.25s;
 }
 
-.product img{
-width:300px;
-border-radius:10px;
+.card:hover{
+    transform:scale(1.03);
+    outline:2px solid rgba(255,255,255,0.15);
 }
 
-.box{
-background:#111;
-padding:15px;
-border-radius:10px;
-margin:10px 0;
+/* ===== ANIMATION AREA ===== */
+.card-anim{
+    position:relative;
+    height:200px;
+    overflow:hidden;
 }
 
-a{color:#00ff88;}
+/* фон (картина) */
+.art{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.5s;
+}
+
+/* машинка */
+.car{
+    position:absolute;
+    width:75%;
+    left:12%;
+    top:50%;
+    transform:translateY(-50%) scale(0.7) rotate(0deg);
+    opacity:0;
+}
+
+/* тень */
+.shadow{
+    position:absolute;
+    width:60%;
+    height:20px;
+    left:20%;
+    bottom:25px;
+    background:black;
+    filter:blur(12px);
+    opacity:0;
+}
+
+/* ===== KEYFRAMES (ВАЖНО ДЛЯ ПЕРЕЗАПУСКА) ===== */
+@keyframes carAnim {
+    0%{
+        opacity:0;
+        transform:translateY(-50%) scale(0.6) rotate(0deg);
+    }
+    50%{
+        opacity:1;
+        transform:translateY(-65%) scale(1) rotate(-10deg);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(-60%) scale(1) rotate(-12deg);
+    }
+}
+
+/* запуск анимации */
+.card:hover .car{
+    animation:carAnim 0.9s ease-out forwards;
+}
+
+.card:hover .shadow{
+    opacity:1;
+}
+
+.card:hover .art{
+    filter:brightness(0.35);
+    transform:scale(1.1);
+}
+
+/* reset (ВАЖНО) */
+.card:not(:hover) .car{
+    animation:none;
+    opacity:0;
+    transform:translateY(-50%) scale(0.7);
+}
+
+.card:not(:hover) .shadow{
+    opacity:0;
+}
+
+/* текст */
+h3{
+    margin:10px;
+}
+.price{
+    margin:10px;
+    color:#00ff88;
+}
+
+/* ===== PRODUCT PAGE ===== */
+.product{
+    display:none;
+    padding:40px;
+}
+
+.gallery img{
+    width:200px;
+    border-radius:10px;
+    margin:5px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="top">
-<div class="logo">APEX</div>
+<!-- КНОПКА НАЗАД (всегда сверху слева) -->
+<button class="back-btn" onclick="goBack()">← Back</button>
 
-<div class="menu">
-<button onclick="show('shop')">Shop</button>
-<button onclick="show('product')">Product</button>
-<button onclick="show('workshop')">Workshop</button>
-<button onclick="show('profile')">Profile</button>
-<button onclick="show('admin')">Admin</button>
-</div>
-</div>
+<!-- HOME -->
+<div id="home">
 
-<!-- ================= SHOP ================= -->
-<section id="shop" class="active">
-<h1>Объявления</h1>
-<div class="grid" id="shop"></div>
-</section>
+<div class="grid">
 
-<!-- ================= PRODUCT ================= -->
-<section id="product">
-<h1 id="pTitle"></h1>
-<img id="pImg">
-<p id="pDesc"></p>
+    <div class="card">
+        <div class="card-anim">
+            <img class="art" src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c">
+            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
+            <div class="shadow"></div>
+        </div>
+        <h3>BMW M3 Art</h3>
+        <div class="price">$49</div>
+    </div>
 
-<div class="box">
-<h3>Характеристики</h3>
-<p id="pSpec"></p>
-</div>
+    <div class="card">
+        <div class="card-anim">
+            <img class="art" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70">
+            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
+            <div class="shadow"></div>
+        </div>
+        <h3>Nissan GTR Art</h3>
+        <div class="price">$59</div>
+    </div>
 
-<div class="box">
-<h3>Связь</h3>
-<p>
-<a href="https://t.me/bera_999">Telegram</a> |
-<a href="https://www.instagram.com/apex_shop_ua/">Instagram</a> |
-<a href="https://www.tiktok.com/@apex_store_ua">TikTok</a>
-</p>
-</div>
-</section>
-
-<!-- ================= WORKSHOP ================= -->
-<section id="workshop">
-<h1>Мастерская</h1>
-
-<select id="car">
-<option>BMW</option>
-<option>GTR</option>
-<option>Supra</option>
-</select>
-
-<select id="bg">
-<option>Garage</option>
-<option>Black table</option>
-</select>
-
-<input id="frame" placeholder="Цвет рамки">
-
-<div class="box">
-<h3>Превью</h3>
-<p id="preview">Выбери параметры</p>
-</div>
-</section>
-
-<!-- ================= PROFILE ================= -->
-<section id="profile">
-<h1>Профиль</h1>
-
-<div class="box">
-<p>Пользователь: <span id="user">Guest</span></p>
 </div>
 
-<div class="box">
-<h3>Сохранённые картины</h3>
-<div id="saved"></div>
 </div>
-</section>
-
-<!-- ================= ADMIN ================= -->
-<section id="admin">
-<h1>Admin Panel</h1>
-
-<div class="box">Посещения: <span id="visits"></span></div>
-<div class="box">Пользователи: <span id="users"></span></div>
-<div class="box">Сохранённые: <span id="savedCount"></span></div>
-<div class="box">Онлайн: 1</div>
-</section>
 
 <script>
-
-/* ================= DATA ================= */
-let products=[
-{
-title:"BMW M3 Art",
-img:"https://picsum.photos/500/300?1",
-desc:"Премиум картина с BMW M3",
-spec:"Размер: 40x60 | Материал: холст | Стиль: dark garage"
-},
-{
-title:"Nissan GTR Art",
-img:"https://picsum.photos/500/300?2",
-desc:"GT-R в стиле кибер гаража",
-spec:"Размер: 50x70 | Материал: холст"
-},
-{
-title:"Supra Art",
-img:"https://picsum.photos/500/300?3",
-desc:"Toyota Supra premium art",
-spec:"Размер: 40x60 | Цвет: neon"
+function goBack(){
+    window.scrollTo({top:0, behavior:'smooth'});
 }
-];
-
-/* ================= SHOP ================= */
-let shop=document.getElementById("shop");
-
-products.forEach((p,i)=>{
-shop.innerHTML+=`
-<div class="card" onclick="openProduct(${i})">
-<img src="${p.img}">
-<h3>${p.title}</h3>
-</div>`;
-});
-
-/* ================= OPEN PRODUCT ================= */
-function openProduct(i){
-show('product');
-
-document.getElementById("pTitle").innerText=products[i].title;
-document.getElementById("pImg").src=products[i].img;
-document.getElementById("pDesc").innerText=products[i].desc;
-document.getElementById("pSpec").innerText=products[i].spec;
-}
-
-/* ================= NAV ================= */
-function show(id){
-document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-}
-
-/* ================= PROFILE ================= */
-let user=localStorage.getItem("user")||"Guest";
-document.getElementById("user").innerText=user;
-
-/* ================= ADMIN ================= */
-let visits=localStorage.getItem("visits")||0;
-visits++;
-localStorage.setItem("visits",visits);
-
-document.getElementById("visits").innerText=visits;
-document.getElementById("users").innerText=3;
-document.getElementById("savedCount").innerText=0;
-
 </script>
 
 </body>
