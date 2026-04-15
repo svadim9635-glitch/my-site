@@ -7,10 +7,8 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        /* Чистка мусора GitHub сверху */
-        header, hr, .header-top {
-            display: none !important;
-        }
+        /* Полная чистка верха */
+        header, hr, .header-top { display: none !important; }
 
         * {
             margin: 0;
@@ -25,52 +23,37 @@
             overflow-x: hidden;
         }
 
-        /* --- ОБНОВЛЕННОЕ ЧЕТКОЕ ЛОГО (Генерация высокого качества) --- */
+        /* ЛОГОТИП (Высокое качество) */
         .title {
             position: fixed;
             top: 15px;
             left: 50%;
             transform: translateX(-50%);
-            /* Размер оставляем премиальный, но теперь он будет четким */
             height: 90px; 
             width: auto;
             z-index: 9999;
             opacity: 0;
-            
-            /* УБРАЛИ фильтры invert, так как новое лого уже белое и на прозрачном фоне */
-            mix-blend-mode: normal; 
+            filter: invert(1) contrast(1.5) brightness(1.2);
+            mix-blend-mode: screen;
         }
 
         @keyframes titleAnim {
-            0% { 
-                opacity: 0; 
-                transform: translateX(-50%) translateY(-30px) scale(0.8); 
-                filter: blur(20px);
-            }
-            50% {
-                opacity: 0.5;
-                filter: blur(10px);
-            }
-            100% { 
-                opacity: 1; 
-                transform: translateX(-50%) translateY(0) scale(1); 
-                filter: blur(0);
-            }
+            0% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(0.8); filter: invert(1) blur(20px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); filter: invert(1) blur(0); }
         }
 
         .title.animate {
             animation: titleAnim 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
         }
 
-        /* Сетка товаров */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
-            padding: 170px 40px 60px; /* Немного увеличили отступ сверху */
+            padding: 170px 40px 60px;
         }
 
-        /* Твои закрепленные карточки */
+        /* ЗАКРЕПЛЯЕМ АНИМАЦИЮ КАРТОЧЕК */
         .product-card {
             background: #111;
             border-radius: 15px;
@@ -78,14 +61,16 @@
             text-align: center;
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            /* Плавность возврата в исходное состояние */
+            transition: all 0.3s ease-in-out !important;
         }
 
+        /* ЭФФЕКТ ПРИ НАВЕДЕНИИ (ТОЧНО КАК ТЫ ПРОСИЛ) */
         .product-card:hover {
-            transform: scale(1.06);
-            background: #1a1a1a;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+            transform: scale(1.08) !important; /* Увеличение */
+            background: #1c1c1c !important; /* Подсветка фона */
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2) !important; /* Белое свечение */
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
         }
 
         .product-img {
@@ -111,7 +96,7 @@
 </head>
 <body>
 
-    <img src="https://i.postimg.cc/qR20fR88/APEX-LOGO-CLEAN.png" class="title" id="title" alt="APEX">
+    <img src="https://i.postimg.cc/sGr0Q65G/APEX-LOGO-FULL.jpg" class="title" id="title" alt="APEX">
 
     <div class="grid">
         <div class="product-card" data-aos="fade-up" data-aos-delay="200">
