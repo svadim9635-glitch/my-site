@@ -7,9 +7,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
-        /* ШАГ 1: УБИРАЕМ ТОЛЬКО ЛИШНЕЕ (Линию и надписи GitHub) */
-        
-        /* Это скроет системную полосу и заголовки, если они лезут */
+        /* Убираем лишнее сверху (линии и надписи GitHub) */
         header, hr, .header-top {
             display: none !important;
         }
@@ -27,7 +25,7 @@
             overflow-x: hidden;
         }
 
-        /* Твой логотип (текстовый, как сейчас на сайте) */
+        /* Заголовок APEX */
         .title {
             position: fixed;
             top: 15px;
@@ -49,7 +47,7 @@
             animation: titleAnim 2s ease-out forwards;
         }
 
-        /* Твоя сетка товаров (которую ты просил запомнить) */
+        /* Сетка товаров */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -57,12 +55,24 @@
             padding: 120px 40px 60px;
         }
 
+        /* КАРТОЧКА ТОВАРА С АНИМАЦИЕЙ ПРИ НАВЕДЕНИИ */
         .product-card {
             background: #111;
             border-radius: 15px;
             padding: 20px;
             text-align: center;
-            transition: 0.3s;
+            /* Плавность всех изменений (0.3 секунды) */
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, background 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Эффект при наведении курсора */
+        .product-card:hover {
+            transform: translateY(-10px); /* Карточка приподнимается */
+            background: #1a1a1a; /* Цвет становится чуть светлее */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Добавляем мягкую тень */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Проявляется тонкая рамка */
         }
 
         .product-img {
@@ -70,6 +80,12 @@
             height: 250px;
             border-radius: 10px;
             margin-bottom: 15px;
+            transition: transform 0.5s ease; /* Для плавности картинки */
+        }
+
+        /* Небольшое увеличение картинки внутри при наведении */
+        .product-card:hover .product-img {
+            transform: scale(1.02);
         }
 
         h3 { margin-bottom: 10px; }
@@ -83,6 +99,12 @@
             border-radius: 20px;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-buy:hover {
+            background: #00ff88;
+            transform: scale(1.05);
         }
     </style>
 </head>
