@@ -8,15 +8,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* 1. БАЗОВЫЕ НАСТРОЙКИ (Темная тема) */
-        body {
-            background-color: #0a0a0a; /* Глубокий черный */
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
+       /* Скрываем стандартные заголовки и линии */
+header, footer, hr {
+    display: none !none;
+}
+
+/* Убеждаемся, что body прижат к самому верху без отступов */
+body {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
 
         /* 2. ГЛАВНЫЙ ЭКРАН (Без воды) */
         header {
