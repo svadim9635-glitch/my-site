@@ -25,39 +25,40 @@
             overflow-x: hidden;
         }
 
-        /* --- ОБНОВЛЕННОЕ АНИМИРОВАННОЕ ЛОГО --- */
+        /* --- ОБНОВЛЕННОЕ ЧЕТКОЕ ЛОГО (Генерация высокого качества) --- */
         .title {
             position: fixed;
             top: 15px;
             left: 50%;
             transform: translateX(-50%);
-            height: 80px; 
+            /* Размер оставляем премиальный, но теперь он будет четким */
+            height: 90px; 
             width: auto;
             z-index: 9999;
-            opacity: 0; /* Изначально невидимое */
-            filter: invert(1) contrast(1.5) brightness(1.2);
-            mix-blend-mode: screen;
+            opacity: 0;
+            
+            /* УБРАЛИ фильтры invert, так как новое лого уже белое и на прозрачном фоне */
+            mix-blend-mode: normal; 
         }
 
         @keyframes titleAnim {
             0% { 
                 opacity: 0; 
                 transform: translateX(-50%) translateY(-30px) scale(0.8); 
-                filter: invert(1) blur(20px); /* Сильное размытие в начале */
+                filter: blur(20px);
             }
             50% {
                 opacity: 0.5;
-                filter: invert(1) blur(10px);
+                filter: blur(10px);
             }
             100% { 
                 opacity: 1; 
                 transform: translateX(-50%) translateY(0) scale(1); 
-                filter: invert(1) blur(0); /* Четкое изображение в конце */
+                filter: blur(0);
             }
         }
 
         .title.animate {
-            /* 2.5 секунды — оптимально для красивого вступления */
             animation: titleAnim 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
         }
 
@@ -66,7 +67,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
-            padding: 150px 40px 60px;
+            padding: 170px 40px 60px; /* Немного увеличили отступ сверху */
         }
 
         /* Твои закрепленные карточки */
@@ -110,7 +111,7 @@
 </head>
 <body>
 
-    <img src="https://i.postimg.cc/sGr0Q65G/APEX-LOGO-FULL.jpg" class="title" id="title" alt="APEX">
+    <img src="https://i.postimg.cc/qR20fR88/APEX-LOGO-CLEAN.png" class="title" id="title" alt="APEX">
 
     <div class="grid">
         <div class="product-card" data-aos="fade-up" data-aos-delay="200">
