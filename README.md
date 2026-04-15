@@ -13,23 +13,22 @@ body{
     color:white;
 }
 
-/* ЛОГОТИП (Твой новый, из картинки) */
+/* 1. ИСПРАВЛЕННОЕ ЛОГО (Твое фото вместо текста) */
 .title{
     position:fixed;
     top:15px;
     left:50%;
     transform:translateX(-50%);
-    /* Настройки размера под твою картинку */
-    height: 70px;
+    /* Ставим высоту как у старого текста, чтобы не резало */
+    height: 60px; 
     width: auto;
     z-index: 9998;
     opacity: 0;
-    /* Убираем фон и делаем буквы белыми */
+    /* Убираем фон и инвертируем буквы в белый */
     filter: invert(1) brightness(1.2);
     mix-blend-mode: screen;
 }
 
-/* Твоя оригинальная анимация */
 @keyframes titleAnim{
     0%{
         opacity:0;
@@ -70,7 +69,6 @@ body{
     border-radius:10px;
     cursor:pointer;
     backdrop-filter:blur(8px);
-    display: none;
 }
 
 .grid{
@@ -164,98 +162,4 @@ body{
     opacity:1;
 }
 
-.card:hover .art{
-    filter:brightness(0.35);
-    transform:scale(1.1);
-}
-
-.product{
-    display:none;
-    padding:120px 40px;
-}
-
-.gallery img{
-    width:200px;
-    border-radius:10px;
-}
-
-h3{margin:10px;}
-.price{margin:10px;color:#00ff88;}
-</style>
-</head>
-
-<body>
-
-<div class="logo">APEX</div>
-<img src="https://i.postimg.cc/sGr0Q65G/APEX-LOGO-FULL.jpg" class="title" id="title">
-
-<button class="back" id="backBtn" onclick="goBack()">← Back</button>
-
-<div id="home">
-<div class="grid" id="grid"></div>
-</div>
-
-<div id="product" class="product">
-<h1 id="pTitle"></h1>
-<p id="pPrice"></p>
-<div class="gallery" id="gallery"></div>
-</div>
-
-<script>
-const cars = [
-"BMW M3 Art","Nissan GTR Art","Mercedes AMG Art",
-"Toyota Supra Art","Audi RS6 Art","Lambo Huracan",
-"Porsche 911","Ferrari F8","McLaren 720S","Bugatti Chiron"
-];
-
-const grid = document.getElementById("grid");
-
-const products = cars.map((name,i)=>({
-    title:name,
-    price:`$${49+i*5}`,
-    img:`https://picsum.photos/600/400?random=${i}`
-}));
-
-products.forEach((p,i)=>{
-grid.innerHTML += `
-<div class="card" onclick="openProduct(${i})">
-    <div class="table">
-        <div class="frame">
-            <img class="art" src="${p.img}">
-            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
-            <div class="shadow"></div>
-        </div>
-    </div>
-    <h3>${p.title}</h3>
-    <div class="price">${p.price}</div>
-</div>`;
-});
-
-function openProduct(i){
-    document.getElementById("home").style.display="none";
-    document.getElementById("product").style.display="block";
-    document.getElementById("backBtn").style.display="block";
-
-    document.getElementById("pTitle").innerText=products[i].title;
-    document.getElementById("pPrice").innerText=products[i].price;
-
-    document.getElementById("gallery").innerHTML=`
-        <img src="${products[i].img}">
-        <img src="https://picsum.photos/600/400?random=${i+10}">
-    `;
-}
-
-function goBack(){
-    document.getElementById("home").style.display="block";
-    document.getElementById("product").style.display="none";
-    document.getElementById("backBtn").style.display="none";
-}
-
-window.addEventListener("load",()=>{
-    const t=document.getElementById("title");
-    t.classList.add("animate"); 
-});
-</script>
-
-</body>
-</html>
+.card:hover .art
