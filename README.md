@@ -27,43 +27,42 @@ body{
 
 /* ===== BIG TITLE ===== */
 .title{
-position: fixed;
-    top: 15px;
+position: absolute; /* Теперь логотип уезжает при скролле */
+    top: 40px; /* Отступ от самого верха страницы */
     left: 50%;
     transform: translateX(-50%);
-    height: 80px; /* Размер надписи */
-    width: auto;
+    
+    /* Управляем размером через ширину. 
+       Поставь 400px или 500px, чтобы надпись была крупной */
+    width: 450px; 
+    height: auto;
+    
     z-index: 9998;
     
-    /* Магия прозрачности: убираем белый фон, оставляем черные буквы */
-    /* Затем инвертируем их в белый цвет, чтобы они горели на черном фоне */
-    filter: invert(1) contrast(2); 
+    /* Сохраняем магию прозрачности фона и белых букв */
+    filter: invert(1) contrast(1.2) brightness(1.2); 
     mix-blend-mode: screen; 
     
-    opacity: 0; /* Изначально скрыт для анимации */
+    opacity: 0;
+    pointer-events: none;
 }
 
-/* Необычная анимация появления: вылет с размытием и "вспышкой" */
+/* Анимация появления (чуть подправил, чтобы она была еще эффектнее на месте) */
 @keyframes apexAppearance {
     0% {
         opacity: 0;
-        transform: translateX(-50%) scale(2); /* Летит издалека */
-        filter: invert(1) blur(20px) brightness(5); /* Ослепительная вспышка */
-    }
-    40% {
-        opacity: 1;
-        filter: invert(1) blur(5px) brightness(2);
+        transform: translateX(-50%) scale(1.1);
+        filter: invert(1) blur(15px) brightness(3);
     }
     100% {
         opacity: 1;
-        transform: translateX(-50%) scale(1); /* Встает на место */
-        filter: invert(1) blur(0) brightness(1.2); /* Остается четким и ярким */
+        transform: translateX(-50%) scale(1);
+        filter: invert(1) blur(0) brightness(1.2);
     }
 }
 
 .title.animate{
-/* Анимация длится 2 секунды и ОСТАЕТСЯ в конечном состоянии (forwards) */
-    animation: apexAppearance 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+animation: apexAppearance 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ===== BACK BUTTON ===== */
