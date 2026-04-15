@@ -25,18 +25,16 @@
             overflow-x: hidden;
         }
 
-        /* --- НОВОЕ ЛОГО (Картинка вместо текста) --- */
+        /* --- ОБНОВЛЕННОЕ АНИМИРОВАННОЕ ЛОГО --- */
         .title {
             position: fixed;
             top: 15px;
             left: 50%;
             transform: translateX(-50%);
-            /* Размер логотипа */
             height: 80px; 
             width: auto;
             z-index: 9999;
-            opacity: 0;
-            /* Делаем буквы белыми и убираем фон */
+            opacity: 0; /* Изначально невидимое */
             filter: invert(1) contrast(1.5) brightness(1.2);
             mix-blend-mode: screen;
         }
@@ -44,18 +42,23 @@
         @keyframes titleAnim {
             0% { 
                 opacity: 0; 
-                transform: translateX(-50%) translateY(-20px) scale(0.9); 
+                transform: translateX(-50%) translateY(-30px) scale(0.8); 
+                filter: invert(1) blur(20px); /* Сильное размытие в начале */
+            }
+            50% {
+                opacity: 0.5;
                 filter: invert(1) blur(10px);
             }
             100% { 
                 opacity: 1; 
                 transform: translateX(-50%) translateY(0) scale(1); 
-                filter: invert(1) blur(0);
+                filter: invert(1) blur(0); /* Четкое изображение в конце */
             }
         }
 
         .title.animate {
-            animation: titleAnim 2s ease-out forwards;
+            /* 2.5 секунды — оптимально для красивого вступления */
+            animation: titleAnim 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
         }
 
         /* Сетка товаров */
@@ -63,10 +66,10 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
-            padding: 150px 40px 60px; /* Отступ под логотип */
+            padding: 150px 40px 60px;
         }
 
-        /* Твои закрепленные карточки с анимацией */
+        /* Твои закрепленные карточки */
         .product-card {
             background: #111;
             border-radius: 15px;
