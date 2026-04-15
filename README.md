@@ -151,6 +151,27 @@
                 <button class="btn-buy">В корзину</button>
             </div>
 
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="product-img" style="background: url('ТВОЯ_ССЫЛКА_НА_ФОТО_2') center/cover;"></div>
+                <h3>Branded Box v1</h3>
+                <span class="price">500 ₴</span>
+                <button class="btn-buy">В корзину</button>
+            </div>
+            
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="product-img" style="background: url('ТВОЯ_ССЫЛКА_НА_ФОТО_2') center/cover;"></div>
+                <h3>Branded Box v1</h3>
+                <span class="price">500 ₴</span>
+                <button class="btn-buy">В корзину</button>
+            </div>
+            
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="product-img" style="background: url('ТВОЯ_ССЫЛКА_НА_ФОТО_2') center/cover;"></div>
+                <h3>Branded Box v1</h3>
+                <span class="price">500 ₴</span>
+                <button class="btn-buy">В корзину</button>
+            </div>
+            
             <div class="product-card" data-aos="fade-up" data-aos-delay="400">
                 <div class="product-img" style="background: url('ТВОЯ_ССЫЛКА_НА_ФОТО_3') center/cover;"></div>
                 <h3>Custom Stencil</h3>
