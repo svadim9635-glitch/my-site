@@ -1,215 +1,260 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX STORE</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0b0b0b;
-            color: white;
-            overflow-x: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX STORE</title>
 
-        /* ===== ЛОГОТИП APEX (АНИМИРОВАННЫЙ) ===== */
-        .title-container {
-            position: absolute;
-            top: 40px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            pointer-events: none;
-        }
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0b0b0b;
+    color:white;
+}
 
-        .title-container img {
-            width: 80%;
-            max-width: 600px;
-            height: auto;
-            /* Убираем белый фон и инвертируем в белый текст */
-            filter: invert(1) contrast(1.5) brightness(1.2);
-            mix-blend-mode: screen;
-        }
+/* ЛОГОТИП (Твой новый, из картинки) */
+.title{
+    position:fixed;
+    top:15px;
+    left:50%;
+    transform:translateX(-50%);
+    /* Настройки размера под твою картинку */
+    height: 70px;
+    width: auto;
+    z-index: 9998;
+    opacity: 0;
+    /* Убираем фон и делаем буквы белыми */
+    filter: invert(1) brightness(1.2);
+    mix-blend-mode: screen;
+}
 
-        @keyframes apexAppearance {
-            0% {
-                opacity: 0;
-                transform: scale(1.2) translateY(-20px);
-                filter: invert(1) blur(20px) brightness(3);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-                filter: invert(1) blur(0) brightness(1.2);
-            }
-        }
+/* Твоя оригинальная анимация */
+@keyframes titleAnim{
+    0%{
+        opacity:0;
+        transform:translateX(-50%) translateY(-20px) scale(0.8);
+        filter: invert(1) blur(10px);
+    }
+    100%{
+        opacity:1;
+        transform:translateX(-50%) translateY(0) scale(1);
+        filter: invert(1) blur(0);
+    }
+}
 
-        .title-container.animate {
-            animation: apexAppearance 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+.title.animate{
+    animation:titleAnim 2.5s ease-out forwards;
+}
 
-        /* ===== МАЛЕНЬКИЙ ЛОГО СЛЕВА ===== */
-        .logo {
-            position: fixed;
-            top: 15px;
-            left: 20px;
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: 4px;
-            z-index: 9999;
-            opacity: 0.7;
-        }
+.logo{
+    position:fixed;
+    top:15px;
+    left:20px;
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:6px;
+    z-index:9999;
+    opacity:0.9;
+}
 
-        /* ===== ГРИД ТОВАРОВ ===== */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            padding: 250px 40px 60px; /* Отступ сверху, чтобы логотип не перекрывал товары */
-        }
+.back{
+    position:fixed;
+    top:20px;
+    left:20px;
+    z-index:9999;
+    padding:10px 15px;
+    background:rgba(0,0,0,0.6);
+    border:1px solid rgba(255,255,255,0.2);
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+    backdrop-filter:blur(8px);
+    display: none;
+}
 
-        /* ===== КАРТОЧКА И ЭФФЕКТ ОТЫВА ===== */
-        .card {
-            background: #111;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-        }
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:120px 40px 60px;
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+.card{
+    background:#111;
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:0.3s;
+}
 
-        .table {
-            height: 250px;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80');
-            background-size: cover;
-            position: relative;
-        }
+.card:hover{
+    transform:scale(1.03);
+    outline:2px solid rgba(255,255,255,0.15);
+}
 
-        .frame {
-            position: absolute;
-            width: 75%;
-            height: 75%;
-            top: 12.5%;
-            left: 12.5%;
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
+.table{
+    height:220px;
+    background:
+    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
+    background-size:cover;
+    position:relative;
+}
 
-        .art {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.6s;
-        }
+.frame{
+    position:absolute;
+    width:70%;
+    height:70%;
+    top:15%;
+    left:15%;
+    border:3px solid rgba(255,255,255,0.25);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
 
-        /* Сама машинка */
-        .car {
-            position: absolute;
-            width: 70%;
-            left: 15%;
-            top: 50%;
-            opacity: 0;
-            transform: translateY(-50%) scale(0.8);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            filter: drop-shadow(0 0 0 rgba(0,0,0,0));
-        }
+.art{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.5s;
+}
 
-        /* Эффект при наведении на карточку */
-        .card:hover .car {
-            opacity: 1;
-            /* Машинка отрывается, поднимается и поворачивается */
-            transform: translateY(-70%) scale(1.15) rotate(-12deg);
-            filter: drop-shadow(15px 25px 15px rgba(0,0,0,0.6));
-        }
+.car{
+    position:absolute;
+    width:65%;
+    left:18%;
+    top:55%;
+    opacity:0;
+    transform:translateY(-50%) scale(0.8);
+}
 
-        .card:hover .art {
-            filter: brightness(0.3);
-            transform: scale(1.1);
-        }
+.shadow{
+    position:absolute;
+    width:60%;
+    height:15px;
+    left:20%;
+    bottom:10px;
+    background:black;
+    filter:blur(10px);
+    opacity:0;
+}
 
-        h3 { padding: 15px 15px 5px; margin: 0; font-size: 18px; }
-        .price { padding: 0 15px 20px; color: #00ff88; font-weight: bold; }
+@keyframes carAnim{
+    0%{
+        opacity:0;
+        transform:translateY(-50%) scale(0.7) rotate(0deg);
+    }
+    50%{
+        opacity:1;
+        transform:translateY(-70%) scale(1) rotate(-10deg);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(-65%) scale(1) rotate(-12deg);
+    }
+}
 
-        .back {
-            position: fixed; top: 20px; left: 20px; z-index: 10001;
-            padding: 10px 15px; background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(255,255,255,0.2); color: white;
-            border-radius: 10px; cursor: pointer; display: none;
-        }
-    </style>
+.card:hover .car{
+    animation:carAnim 0.9s ease forwards;
+}
+
+.card:hover .shadow{
+    opacity:1;
+}
+
+.card:hover .art{
+    filter:brightness(0.35);
+    transform:scale(1.1);
+}
+
+.product{
+    display:none;
+    padding:120px 40px;
+}
+
+.gallery img{
+    width:200px;
+    border-radius:10px;
+}
+
+h3{margin:10px;}
+.price{margin:10px;color:#00ff88;}
+</style>
 </head>
+
 <body>
 
 <div class="logo">APEX</div>
-<div class="title-container" id="title">
-    <img src="https://i.postimg.cc/sGr0Q65G/APEX-LOGO-FULL.jpg" alt="APEX">
-</div>
+<img src="https://i.postimg.cc/sGr0Q65G/APEX-LOGO-FULL.jpg" class="title" id="title">
 
 <button class="back" id="backBtn" onclick="goBack()">← Back</button>
 
 <div id="home">
-    <div class="grid" id="grid"></div>
+<div class="grid" id="grid"></div>
 </div>
 
-<div id="product" style="display:none; padding: 120px 40px;">
-    <h1 id="pTitle"></h1>
-    <p id="pPrice"></p>
-    <div id="gallery"></div>
+<div id="product" class="product">
+<h1 id="pTitle"></h1>
+<p id="pPrice"></p>
+<div class="gallery" id="gallery"></div>
 </div>
 
 <script>
-    const cars = ["Porsche 911 GT3", "BMW M4 Art", "Nissan GTR R35", "Lambo Huracan", "Audi RS6 Avant", "Ferrari F8"];
-    const grid = document.getElementById("grid");
+const cars = [
+"BMW M3 Art","Nissan GTR Art","Mercedes AMG Art",
+"Toyota Supra Art","Audi RS6 Art","Lambo Huracan",
+"Porsche 911","Ferrari F8","McLaren 720S","Bugatti Chiron"
+];
 
-    const products = cars.map((name, i) => ({
-        title: name,
-        price: `$${99 + i * 20}`,
-        img: `https://picsum.photos/600/400?random=${i}`
-    }));
+const grid = document.getElementById("grid");
 
-    products.forEach((p, i) => {
-        grid.innerHTML += `
-        <div class="card" onclick="openProduct(${i})">
-            <div class="table">
-                <div class="frame">
-                    <img class="art" src="${p.img}">
-                    <img class="car" src="https://pngimg.com/uploads/porsche/porsche_PNG10614.png">
-                </div>
-            </div>
-            <h3>${p.title}</h3>
-            <div class="price">${p.price}</div>
-        </div>`;
-    });
+const products = cars.map((name,i)=>({
+    title:name,
+    price:`$${49+i*5}`,
+    img:`https://picsum.photos/600/400?random=${i}`
+}));
 
-    function openProduct(i) {
-        document.getElementById("home").style.display = "none";
-        document.getElementById("title").style.display = "none";
-        document.getElementById("product").style.display = "block";
-        document.getElementById("backBtn").style.display = "block";
-        document.getElementById("pTitle").innerText = products[i].title;
-        document.getElementById("pPrice").innerText = products[i].price;
-    }
+products.forEach((p,i)=>{
+grid.innerHTML += `
+<div class="card" onclick="openProduct(${i})">
+    <div class="table">
+        <div class="frame">
+            <img class="art" src="${p.img}">
+            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
+            <div class="shadow"></div>
+        </div>
+    </div>
+    <h3>${p.title}</h3>
+    <div class="price">${p.price}</div>
+</div>`;
+});
 
-    function goBack() {
-        document.getElementById("home").style.display = "block";
-        document.getElementById("title").style.display = "flex";
-        document.getElementById("product").style.display = "none";
-        document.getElementById("backBtn").style.display = "none";
-    }
+function openProduct(i){
+    document.getElementById("home").style.display="none";
+    document.getElementById("product").style.display="block";
+    document.getElementById("backBtn").style.display="block";
 
-    window.addEventListener("load", () => {
-        const t = document.getElementById("title");
-        if (t) t.classList.add("animate");
-    });
+    document.getElementById("pTitle").innerText=products[i].title;
+    document.getElementById("pPrice").innerText=products[i].price;
+
+    document.getElementById("gallery").innerHTML=`
+        <img src="${products[i].img}">
+        <img src="https://picsum.photos/600/400?random=${i+10}">
+    `;
+}
+
+function goBack(){
+    document.getElementById("home").style.display="block";
+    document.getElementById("product").style.display="none";
+    document.getElementById("backBtn").style.display="none";
+}
+
+window.addEventListener("load",()=>{
+    const t=document.getElementById("title");
+    t.classList.add("animate"); 
+});
 </script>
 
 </body>
