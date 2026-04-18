@@ -1,132 +1,230 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX STORE</title>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <style>
-        /* Убираем лишнее сверху */
-        header, hr, .header-top {
-            display: none !important;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX STORE</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0a0a0a;
+    color:white;
+}
 
-        body {
-            background: #0b0b0b;
-            color: white;
-            font-family: Arial, sans-serif;
-            overflow-x: hidden;
-        }
+/* ===== LOGO (БОЛЬШОЙ + КРАСИВАЯ АНИМАЦИЯ) ===== */
+.logo{
+    position:fixed;
+    top:30%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0.8);
+    font-size:120px;
+    font-weight:900;
+    letter-spacing:18px;
+    z-index:9999;
+    opacity:0;
+    filter:blur(20px);
+    transition:1s ease;
+}
 
-        /* Заголовок APEX */
-        .title {
-            position: fixed;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: 5px;
-            z-index: 9999;
-            opacity: 0;
-        }
+/* после загрузки */
+.logo.show{
+    top:20px;
+    transform:translateX(-50%) scale(1);
+    opacity:1;
+    filter:blur(0);
+}
 
-        @keyframes titleAnim {
-            0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
+/* ===== BACK ===== */
+.back{
+    position:fixed;
+    top:20px;
+    left:20px;
+    padding:10px 15px;
+    background:#111;
+    border:1px solid #333;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    z-index:9999;
+}
 
-        .title.animate {
-            animation: titleAnim 2s ease-out forwards;
-        }
+/* ===== GRID ===== */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+    padding:140px 40px;
+}
 
-        /* Сетка товаров */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            padding: 120px 40px 60px;
-        }
+/* ===== CARD (ПРЯМОУГОЛЬНЫЕ) ===== */
+.card{
+    background:#111;
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:0.3s;
+}
 
-        /* КАРТОЧКА ТОВАРА */
-        .product-card {
-            background: #111;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            z-index: 1;
-            
-            /* ЖЕСТКАЯ ПЛАВНОСТЬ ДЛЯ ПРОВЕРКИ */
-            transition: all 0.3s ease-in-out !important;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+.card:hover{
+    transform:scale(1.04);
+}
 
-        /* ФИНАЛЬНЫЙ ЭФФЕКТ ПОДСВЕЧИВАНИЯ И УВЕЛИЧЕНИЯ */
-        .product-card:hover {
-            transform: scale(1.08) !important; /* Увеличение */
-            z-index: 10;
-            background: #1c1c1c !important; /* Подсветка фона */
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2) !important; /* Белое свечение */
-            border: 1px solid rgba(255, 255, 255, 0.4) !important;
-        }
+/* ТЕПЕРЬ ПРЯМОУГОЛЬНИК */
+.table{
+    height:180px;
+    background:url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
+    background-size:cover;
+    position:relative;
+}
 
-        .product-img {
-            width: 100%;
-            height: 250px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
+/* FRAME */
+.frame{
+    position:absolute;
+    width:75%;
+    height:75%;
+    top:12%;
+    left:12%;
+    border:2px solid white;
+    overflow:hidden;
+}
 
-        h3 { margin-bottom: 10px; }
-        .price { display: block; color: #00ff88; font-weight: bold; margin-bottom: 15px; }
+/* IMAGE */
+.art{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.4s;
+}
 
-        .btn-buy {
-            padding: 10px 25px;
-            background: white;
-            color: black;
-            border: none;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
+/* CAR */
+.car{
+    position:absolute;
+    width:60%;
+    left:20%;
+    top:55%;
+    opacity:0;
+}
+
+/* SHADOW */
+.shadow{
+    position:absolute;
+    width:60%;
+    height:10px;
+    left:20%;
+    bottom:10px;
+    background:black;
+    filter:blur(10px);
+    opacity:0;
+}
+
+/* ANIMATION */
+@keyframes carAnim{
+    0%{opacity:0; transform:translateY(0) scale(0.7);}
+    100%{opacity:1; transform:translateY(-25px) scale(1);}
+}
+
+.card:hover .car{
+    animation:carAnim 0.6s forwards;
+}
+
+.card:hover .shadow{
+    opacity:1;
+}
+
+.card:hover .art{
+    filter:brightness(0.4);
+}
+
+/* ===== PRODUCT ===== */
+.product{
+    display:none;
+    padding:120px 40px;
+}
+
+.gallery img{
+    width:220px;
+    margin:5px;
+}
+
+/* TEXT */
+h3{margin:10px;}
+.price{margin:10px;color:#00ff88;}
+</style>
 </head>
+
 <body>
 
-    <div class="title" id="title">APEX</div>
+<div class="logo" id="logo">APEX</div>
+<button class="back" onclick="goBack()">← Back</button>
 
-    <div class="grid">
-        <div class="product-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="product-img" style="background: url('https://i.ibb.co/b7aa829e/photo_2026-03-22_02-51-40.jpg') center/cover;"></div>
-            <h3>Porsche 911 GT3 RS</h3>
-            <span class="price">2500 ₴</span>
-            <button class="btn-buy">В корзину</button>
-        </div>
+<div id="home">
+<div class="grid" id="grid"></div>
+</div>
 
-        <div class="product-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="product-img" style="background: url('https://i.postimg.cc/vH8kX2Yq/branded-box.jpg') center/cover;"></div>
-            <h3>Branded Box v1</h3>
-            <span class="price">500 ₴</span>
-            <button class="btn-buy">В корзину</button>
+<div id="product" class="product">
+<h1 id="pTitle"></h1>
+<p id="pPrice"></p>
+<div id="gallery" class="gallery"></div>
+</div>
+
+<script>
+
+/* ===== LOGO ANIMATION ===== */
+window.onload = () => {
+    setTimeout(()=>{
+        document.getElementById("logo").classList.add("show");
+    },200);
+};
+
+/* ===== PRODUCTS (10 ШТ) ===== */
+const products=[
+"BMW M3","GTR","AMG","SUPRA","RS6",
+"HURACAN","911","F8","720S","CHIRON"
+].map((name,i)=>({
+    title:name,
+    price:`$${50+i*5}`,
+    img:`https://picsum.photos/600/400?${i}`
+}));
+
+const grid=document.getElementById("grid");
+
+products.forEach((p,i)=>{
+grid.innerHTML+=`
+<div class="card" onclick="openProduct(${i})">
+    <div class="table">
+        <div class="frame">
+            <img class="art" src="${p.img}">
+            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
+            <div class="shadow"></div>
         </div>
     </div>
+    <h3>${p.title}</h3>
+    <div class="price">${p.price}</div>
+</div>`;
+});
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-        window.addEventListener("load", () => {
-            const t = document.getElementById("title");
-            if (t) t.classList.add("animate");
-        });
-    </script>
+/* ===== PRODUCT PAGE ===== */
+function openProduct(i){
+    home.style.display="none";
+    product.style.display="block";
+
+    pTitle.innerText=products[i].title;
+    pPrice.innerText=products[i].price;
+
+    gallery.innerHTML=`
+    <img src="${products[i].img}">
+    <img src="https://picsum.photos/600/400?${i+20}">
+    `;
+}
+
+function goBack(){
+    home.style.display="block";
+    product.style.display="none";
+}
+
+</script>
+
 </body>
 </html>
