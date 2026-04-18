@@ -13,7 +13,7 @@ body{
     color:white;
 }
 
-/* ===== LOGO (БОЛЬШОЙ + КРАСИВАЯ АНИМАЦИЯ) ===== */
+/* ===== LOGO ===== */
 .logo{
     position:fixed;
     top:30%;
@@ -28,7 +28,6 @@ body{
     transition:1s ease;
 }
 
-/* после загрузки */
 .logo.show{
     top:20px;
     transform:translateX(-50%) scale(1);
@@ -58,22 +57,25 @@ body{
     padding:140px 40px;
 }
 
-/* ===== CARD (ПРЯМОУГОЛЬНЫЕ) ===== */
+/* ===== CARD ===== */
 .card{
     background:#111;
     border-radius:12px;
     overflow:hidden;
     cursor:pointer;
     transition:0.3s;
+    display:flex;
+    flex-direction:column;
 }
 
 .card:hover{
     transform:scale(1.04);
 }
 
-/* ТЕПЕРЬ ПРЯМОУГОЛЬНИК */
+/* ===== ТЕПЕРЬ ПРЯМОУГОЛЬНИК ===== */
 .table{
-    height:180px;
+    height:140px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
     background:url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
     background-size:cover;
     position:relative;
