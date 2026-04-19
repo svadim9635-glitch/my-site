@@ -75,7 +75,7 @@ body{
 /* ===== ТЕПЕРЬ ПРЯМОУГОЛЬНИК ===== */
 .table{
     width:100%;
-    aspect-ratio: 2 / 3; /* ВЕРТИКАЛЬНЫЙ ПРЯМОУГОЛЬНИК */
+    aspect-ratio: 9 / 16; /* ВЕРТИКАЛЬНЫЙ ПРЯМОУГОЛЬНИК */
     border-bottom:1px solid rgba(255,255,255,0.1);
     background:url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
     background-size:cover;
