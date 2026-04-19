@@ -74,13 +74,14 @@ body{
 
 /* ===== ТЕПЕРЬ ПРЯМОУГОЛЬНИК ===== */
 .table{
-    height:140px;
+    width:100%;
+    aspect-ratio: 16 / 9; /* ВОТ ГЛАВНОЕ */
     border-bottom:1px solid rgba(255,255,255,0.1);
     background:url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
     background-size:cover;
+    background-position:center;
     position:relative;
 }
-
 /* FRAME */
 .frame{
     position:absolute;
