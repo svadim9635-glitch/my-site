@@ -16,22 +16,23 @@ body{
 /* ===== LOGO ===== */
 .logo{
     position:fixed;
-    top:30%;
+    top:20px; /* фиксированная позиция */
     left:50%;
-    transform:translate(-50%,-50%) scale(0.8);
+    transform:translateX(-50%) scale(0.8);
     font-size:120px;
     font-weight:900;
     letter-spacing:18px;
     z-index:9999;
+
     opacity:0;
     filter:blur(20px);
-    transition:1s ease;
+    transition:0.8s ease;
 }
 
+/* только появление, БЕЗ движения */
 .logo.show{
-    top:20px;
-    transform:translateX(-50%) scale(1);
     opacity:1;
+    transform:translateX(-50%) scale(1);
     filter:blur(0);
 }
 
