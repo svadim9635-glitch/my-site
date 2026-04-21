@@ -15,27 +15,26 @@ body{
 
 /* ===== LOGO ===== */
 .logo{
-    position:fixed;
-    top:20px; /* фиксированная позиция */
+    position:absolute; /* теперь привязан к странице */
+    top:20px;
     left:50%;
     transform:translateX(-50%) scale(0.8);
     font-size:120px;
     font-weight:900;
     letter-spacing:18px;
-    z-index:9999;
 
     opacity:0;
     filter:blur(20px);
     transition:0.8s ease;
 }
 
-/* только появление, БЕЗ движения */
+/* появление */
 .logo.show{
     opacity:1;
     transform:translateX(-50%) scale(1);
     filter:blur(0);
 }
-
+    
 /* ===== BACK ===== */
 .back{
     position:fixed;
