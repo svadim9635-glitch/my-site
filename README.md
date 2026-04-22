@@ -13,28 +13,28 @@ body{
     color:white;
 }
 
-/* ===== LOGO ===== */
+/* ===== LOGO (ТЕПЕРЬ В ПОТОКЕ) ===== */
 .logo{
-    position:absolute; /* теперь привязан к странице */
-    top:20px;
-    left:50%;
-    transform:translateX(-50%) scale(0.8);
+    position:relative;
+    margin-top:40px;
+    text-align:center;
+
     font-size:120px;
     font-weight:900;
     letter-spacing:18px;
 
     opacity:0;
+    transform:scale(0.8);
     filter:blur(20px);
     transition:0.8s ease;
 }
 
-/* появление */
 .logo.show{
     opacity:1;
-    transform:translateX(-50%) scale(1);
+    transform:scale(1);
     filter:blur(0);
 }
-    
+
 /* ===== BACK ===== */
 .back{
     position:fixed;
@@ -51,7 +51,10 @@ body{
 
 /* ===== GRID ===== */
 .grid{
-    padding:200px 40px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+    padding:40px;
 }
 
 /* ===== CARD ===== */
@@ -69,16 +72,17 @@ body{
     transform:scale(1.04);
 }
 
-/* ===== ТЕПЕРЬ ПРЯМОУГОЛЬНИК ===== */
+/* ===== ВЕРТИКАЛЬНЫЙ ПРЯМОУГОЛЬНИК ===== */
 .table{
     width:100%;
-    aspect-ratio: 9 / 16; /* ВЕРТИКАЛЬНЫЙ ПРЯМОУГОЛЬНИК */
+    aspect-ratio: 3 / 4;
     border-bottom:1px solid rgba(255,255,255,0.1);
     background:url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
     background-size:cover;
     background-position:center;
     position:relative;
 }
+
 /* FRAME */
 .frame{
     position:absolute;
@@ -156,11 +160,15 @@ h3{margin:10px;}
 
 <body>
 
-<div class="logo" id="logo">APEX</div>
 <button class="back" onclick="goBack()">← Back</button>
 
 <div id="home">
+
+<!-- ЛОГО ТЕПЕРЬ ВНУТРИ СТРАНИЦЫ -->
+<div class="logo" id="logo">APEX</div>
+
 <div class="grid" id="grid"></div>
+
 </div>
 
 <div id="product" class="product">
