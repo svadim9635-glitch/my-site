@@ -33,7 +33,7 @@ body{
 
 .logo img{
     width:500px;
-    filter: invert(1); /* делает белым */
+    filter:invert(1);
 }
 
 /* ===== BACK ===== */
@@ -73,10 +73,10 @@ body{
     transform:scale(1.04);
 }
 
-/* ===== ВЕРТИКАЛЬНЫЕ КАРТОЧКИ ===== */
+/* ===== VERTICAL CARDS ===== */
 .table{
     width:100%;
-    aspect-ratio: 3 / 4;
+    aspect-ratio:3/4;
     background:url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
     background-size:cover;
     background-position:center;
@@ -125,8 +125,14 @@ body{
 
 /* ANIMATION */
 @keyframes carAnim{
-    0%{opacity:0; transform:translateY(0) scale(0.7);}
-    100%{opacity:1; transform:translateY(-25px) scale(1);}
+    0%{
+        opacity:0;
+        transform:translateY(0) scale(0.7);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(-25px) scale(1);
+    }
 }
 
 .card:hover .car{
@@ -153,8 +159,14 @@ body{
 }
 
 /* TEXT */
-h3{margin:10px;}
-.price{margin:10px;color:#00ff88;}
+h3{
+    margin:10px;
+}
+
+.price{
+    margin:10px;
+    color:#00ff88;
+}
 </style>
 </head>
 
@@ -164,19 +176,21 @@ h3{margin:10px;}
 
 <div id="home">
 
-<!-- ЛОГО -->
+<!-- ===== LOGO ===== -->
 <div class="logo" id="logo">
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA..." />
+    <img src="logo.jpg">
 </div>
 
+<!-- ===== PRODUCTS ===== -->
 <div class="grid" id="grid"></div>
 
 </div>
 
+<!-- ===== PRODUCT PAGE ===== -->
 <div id="product" class="product">
-<h1 id="pTitle"></h1>
-<p id="pPrice"></p>
-<div id="gallery" class="gallery"></div>
+    <h1 id="pTitle"></h1>
+    <p id="pPrice"></p>
+    <div id="gallery" class="gallery"></div>
 </div>
 
 <script>
@@ -188,50 +202,78 @@ window.onload = () => {
     },200);
 };
 
-/* ===== PRODUCTS (10 ШТ) ===== */
+/* ===== PRODUCTS ===== */
 const products=[
-"BMW M3","GTR","AMG","SUPRA","RS6",
-"HURACAN","911","F8","720S","CHIRON"
+"BMW M3",
+"Nissan GTR",
+"Mercedes AMG",
+"Toyota Supra",
+"Audi RS6",
+"Lamborghini Huracan",
+"Porsche 911",
+"Ferrari F8",
+"McLaren 720S",
+"Bugatti Chiron"
 ].map((name,i)=>({
     title:name,
     price:`$${50+i*5}`,
-    img:`https://picsum.photos/600/400?${i}`
+    img:`https://picsum.photos/600/400?random=${i}`
 }));
 
 const grid=document.getElementById("grid");
 
+/* ===== CREATE CARDS ===== */
 products.forEach((p,i)=>{
-grid.innerHTML+=`
+
+grid.innerHTML += `
 <div class="card" onclick="openProduct(${i})">
+
     <div class="table">
+
         <div class="frame">
+
             <img class="art" src="${p.img}">
-            <img class="car" src="https://pngimg.com/uploads/car/car_PNG1640.png">
+
+            <img class="car"
+            src="https://pngimg.com/uploads/car/car_PNG1640.png">
+
             <div class="shadow"></div>
+
         </div>
+
     </div>
+
     <h3>${p.title}</h3>
+
     <div class="price">${p.price}</div>
-</div>`;
+
+</div>
+`;
+
 });
 
-/* ===== PRODUCT PAGE ===== */
+/* ===== OPEN PRODUCT ===== */
 function openProduct(i){
+
     home.style.display="none";
     product.style.display="block";
 
     pTitle.innerText=products[i].title;
+
     pPrice.innerText=products[i].price;
 
     gallery.innerHTML=`
-    <img src="${products[i].img}">
-    <img src="https://picsum.photos/600/400?${i+20}">
+        <img src="${products[i].img}">
+        <img src="https://picsum.photos/600/400?random=${i+20}">
     `;
 }
 
+/* ===== BACK ===== */
 function goBack(){
+
     home.style.display="block";
     product.style.display="none";
+
 }
 
 </script>
