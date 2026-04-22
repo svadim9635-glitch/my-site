@@ -13,15 +13,11 @@ body{
     color:white;
 }
 
-/* ===== LOGO (ТЕПЕРЬ В ПОТОКЕ) ===== */
+/* ===== LOGO ===== */
 .logo{
     position:relative;
     margin-top:40px;
     text-align:center;
-
-    font-size:120px;
-    font-weight:900;
-    letter-spacing:18px;
 
     opacity:0;
     transform:scale(0.8);
@@ -33,6 +29,10 @@ body{
     opacity:1;
     transform:scale(1);
     filter:blur(0);
+}
+
+.logo img{
+    width:420px;
 }
 
 /* ===== BACK ===== */
@@ -52,7 +52,7 @@ body{
 /* ===== GRID ===== */
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
     gap:20px;
     padding:40px;
 }
@@ -72,11 +72,10 @@ body{
     transform:scale(1.04);
 }
 
-/* ===== ВЕРТИКАЛЬНЫЙ ПРЯМОУГОЛЬНИК ===== */
+/* ===== ВЕРТИКАЛЬНЫЕ КАРТОЧКИ ===== */
 .table{
     width:100%;
     aspect-ratio: 3 / 4;
-    border-bottom:1px solid rgba(255,255,255,0.1);
     background:url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
     background-size:cover;
     background-position:center;
@@ -164,8 +163,10 @@ h3{margin:10px;}
 
 <div id="home">
 
-<!-- ЛОГО ТЕПЕРЬ ВНУТРИ СТРАНИЦЫ -->
-<div class="logo" id="logo">APEX</div>
+<!-- ЛОГО -->
+<div class="logo" id="logo">
+    <img src="logo.png">
+</div>
 
 <div class="grid" id="grid"></div>
 
