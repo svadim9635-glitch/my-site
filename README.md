@@ -31,8 +31,8 @@ body{
     filter:blur(0);
 }
 
-.logo img{
-    width:420px;
+.logo svg{
+    width:500px;
 }
 
 /* ===== BACK ===== */
@@ -163,9 +163,13 @@ h3{margin:10px;}
 
 <div id="home">
 
-<!-- ЛОГО -->
+<!-- ЛОГО БЕЗ ФАЙЛОВ -->
 <div class="logo" id="logo">
-    <img src="logo.png">
+<svg viewBox="0 0 800 200" fill="white">
+    <text x="50%" y="60%" text-anchor="middle" font-size="140" font-weight="900" letter-spacing="10" font-family="Arial">
+        APEX
+    </text>
+</svg>
 </div>
 
 <div class="grid" id="grid"></div>
