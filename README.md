@@ -31,8 +31,9 @@ body{
     filter:blur(0);
 }
 
-.logo svg{
+.logo img{
     width:500px;
+    filter: invert(1); /* делает белым */
 }
 
 /* ===== BACK ===== */
@@ -163,13 +164,9 @@ h3{margin:10px;}
 
 <div id="home">
 
-<!-- ЛОГО БЕЗ ФАЙЛОВ -->
+<!-- ЛОГО -->
 <div class="logo" id="logo">
-<svg viewBox="0 0 800 200" fill="white">
-    <text x="50%" y="60%" text-anchor="middle" font-size="140" font-weight="900" letter-spacing="10" font-family="Arial">
-        APEX
-    </text>
-</svg>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA..." />
 </div>
 
 <div class="grid" id="grid"></div>
