@@ -35,8 +35,6 @@ body{
     filter:blur(0);
 }
 
-/* ===== SVG LOGO ===== */
-
 .logo svg{
     width:520px;
     max-width:90%;
@@ -259,6 +257,14 @@ h3{
     color:#00ff88;
 }
 
+.info-block{
+    margin-top:20px;
+    background:#111;
+    padding:25px;
+    border-radius:14px;
+    line-height:1.8;
+}
+
 </style>
 </head>
 
@@ -439,6 +445,59 @@ function openProduct(i){
 
         <img
         src="https://picsum.photos/600/400?random=${i+20}">
+
+        <img
+        src="https://picsum.photos/600/400?random=${i+40}">
+
+        <div class="info-block">
+
+        <h2>Характеристики</h2>
+
+        <p>• Размер: 40x60 см</p>
+
+        <p>• Материал рамки: дерево</p>
+
+        <p>• Покрытие: матовое</p>
+
+        <p>• Машинка: Hot Wheels</p>
+
+        <p>• Подсветка: LED</p>
+
+        <p>• Тип крепления: настенное</p>
+
+        <p>• Ручная сборка</p>
+
+        </div>
+
+        <div class="info-block">
+
+        <h2>Описание</h2>
+
+        <p style="opacity:0.8;">
+
+        Уникальная кастомная картина
+        с моделью автомобиля.
+
+        Каждая работа собирается вручную.
+
+        Возможно создание индивидуального дизайна,
+        выбор цвета рамки, фона и автомобиля.
+
+        </p>
+
+        </div>
+
+        <div class="info-block">
+
+        <h2>Отзывы</h2>
+
+        <p>★★★★★ — Очень круто выглядит вживую</p>
+
+        <p>★★★★★ — Качество лучше чем ожидал</p>
+
+        <p>★★★★★ — Идеальный подарок</p>
+
+        </div>
 
     `;
 }
