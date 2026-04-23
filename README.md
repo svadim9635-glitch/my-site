@@ -6,14 +6,17 @@
 <title>APEX STORE</title>
 
 <style>
+
 body{
     margin:0;
     font-family:Arial;
     background:#0a0a0a;
     color:white;
+    overflow-x:hidden;
 }
 
 /* ===== LOGO ===== */
+
 .logo{
     position:relative;
     margin-top:40px;
@@ -22,6 +25,7 @@ body{
     opacity:0;
     transform:scale(0.8);
     filter:blur(20px);
+
     transition:0.8s ease;
 }
 
@@ -31,41 +35,63 @@ body{
     filter:blur(0);
 }
 
-.logo img{
-    width:500px;
-    filter:invert(1);
+/* ===== SVG LOGO ===== */
+
+.logo svg{
+    width:520px;
+    max-width:90%;
 }
 
-/* ===== BACK ===== */
+/* ===== BACK BUTTON ===== */
+
 .back{
     position:fixed;
     top:20px;
     left:20px;
+
     padding:10px 15px;
+
     background:#111;
+
     border:1px solid #333;
+
     color:white;
+
     border-radius:8px;
+
     cursor:pointer;
+
     z-index:9999;
 }
 
 /* ===== GRID ===== */
+
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
     gap:20px;
+
     padding:40px;
 }
 
 /* ===== CARD ===== */
+
 .card{
     background:#111;
-    border-radius:12px;
+
+    border-radius:14px;
+
     overflow:hidden;
+
     cursor:pointer;
+
     transition:0.3s;
+
     display:flex;
+
     flex-direction:column;
 }
 
@@ -73,66 +99,123 @@ body{
     transform:scale(1.04);
 }
 
-/* ===== VERTICAL CARDS ===== */
+/* ===== VERTICAL CARD ===== */
+
 .table{
+
     width:100%;
+
     aspect-ratio:3/4;
-    background:url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
+
+    background:
+    linear-gradient(
+    rgba(0,0,0,0.35),
+    rgba(0,0,0,0.35)
+    ),
+
+    url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
+
     background-size:cover;
+
     background-position:center;
+
     position:relative;
 }
 
-/* FRAME */
+/* ===== FRAME ===== */
+
 .frame{
+
     position:absolute;
+
     width:75%;
+
     height:75%;
+
     top:12%;
+
     left:12%;
-    border:2px solid white;
+
+    border:2px solid rgba(255,255,255,0.8);
+
     overflow:hidden;
+
+    border-radius:8px;
 }
 
-/* IMAGE */
+/* ===== IMAGE ===== */
+
 .art{
+
     width:100%;
+
     height:100%;
+
     object-fit:cover;
+
     transition:0.4s;
 }
 
-/* CAR */
+/* ===== CAR ===== */
+
 .car{
+
     position:absolute;
+
     width:60%;
+
     left:20%;
+
     top:55%;
+
     opacity:0;
+
+    pointer-events:none;
 }
 
-/* SHADOW */
+/* ===== SHADOW ===== */
+
 .shadow{
+
     position:absolute;
+
     width:60%;
-    height:10px;
+
+    height:12px;
+
     left:20%;
+
     bottom:10px;
+
     background:black;
+
     filter:blur(10px);
+
     opacity:0;
+
+    transition:0.3s;
 }
 
-/* ANIMATION */
+/* ===== ANIMATION ===== */
+
 @keyframes carAnim{
+
     0%{
         opacity:0;
-        transform:translateY(0) scale(0.7);
+        transform:
+        translateY(0)
+        scale(0.7)
+        rotate(0deg);
     }
+
     100%{
         opacity:1;
-        transform:translateY(-25px) scale(1);
+        transform:
+        translateY(-25px)
+        scale(1)
+        rotate(-10deg);
     }
+
 }
 
 .card:hover .car{
@@ -144,21 +227,29 @@ body{
 }
 
 .card:hover .art{
-    filter:brightness(0.4);
+    filter:brightness(0.35);
 }
 
-/* ===== PRODUCT ===== */
+/* ===== PRODUCT PAGE ===== */
+
 .product{
+
     display:none;
+
     padding:120px 40px;
 }
 
 .gallery img{
+
     width:220px;
+
     margin:5px;
+
+    border-radius:10px;
 }
 
-/* TEXT */
+/* ===== TEXT ===== */
+
 h3{
     margin:10px;
 }
@@ -167,74 +258,147 @@ h3{
     margin:10px;
     color:#00ff88;
 }
+
 </style>
 </head>
 
 <body>
 
-<button class="back" onclick="goBack()">← Back</button>
+<!-- ===== BACK ===== -->
+
+<button class="back" onclick="goBack()">
+← Back
+</button>
+
+<!-- ===== HOME ===== -->
 
 <div id="home">
 
 <!-- ===== LOGO ===== -->
+
 <div class="logo" id="logo">
-    <img src="logo.jpg">
+
+<svg viewBox="0 0 900 220"
+xmlns="http://www.w3.org/2000/svg">
+
+<text
+x="50%"
+y="58%"
+text-anchor="middle"
+
+fill="white"
+
+font-size="150"
+
+font-weight="900"
+
+letter-spacing="12"
+
+font-family="Arial Black, Arial"
+
+transform="skewX(-14)"
+
+>
+
+APEX
+
+</text>
+
+</svg>
+
 </div>
 
 <!-- ===== PRODUCTS ===== -->
+
 <div class="grid" id="grid"></div>
 
 </div>
 
 <!-- ===== PRODUCT PAGE ===== -->
+
 <div id="product" class="product">
-    <h1 id="pTitle"></h1>
-    <p id="pPrice"></p>
-    <div id="gallery" class="gallery"></div>
+
+<h1 id="pTitle"></h1>
+
+<p id="pPrice"></p>
+
+<div id="gallery" class="gallery"></div>
+
 </div>
 
 <script>
 
 /* ===== LOGO ANIMATION ===== */
-window.onload = () => {
+
+window.onload=()=>{
+
     setTimeout(()=>{
-        document.getElementById("logo").classList.add("show");
+
+        document
+        .getElementById("logo")
+        .classList
+        .add("show");
+
     },200);
+
 };
 
 /* ===== PRODUCTS ===== */
+
 const products=[
+
 "BMW M3",
+
 "Nissan GTR",
+
 "Mercedes AMG",
+
 "Toyota Supra",
+
 "Audi RS6",
+
 "Lamborghini Huracan",
+
 "Porsche 911",
+
 "Ferrari F8",
+
 "McLaren 720S",
+
 "Bugatti Chiron"
+
 ].map((name,i)=>({
+
     title:name,
+
     price:`$${50+i*5}`,
-    img:`https://picsum.photos/600/400?random=${i}`
+
+    img:
+`https://picsum.photos/600/400?random=${i}`
+
 }));
 
 const grid=document.getElementById("grid");
 
 /* ===== CREATE CARDS ===== */
+
 products.forEach((p,i)=>{
 
 grid.innerHTML += `
-<div class="card" onclick="openProduct(${i})">
+
+<div class="card"
+onclick="openProduct(${i})">
 
     <div class="table">
 
         <div class="frame">
 
-            <img class="art" src="${p.img}">
+            <img
+            class="art"
+            src="${p.img}">
 
-            <img class="car"
+            <img
+            class="car"
             src="https://pngimg.com/uploads/car/car_PNG1640.png">
 
             <div class="shadow"></div>
@@ -245,33 +409,46 @@ grid.innerHTML += `
 
     <h3>${p.title}</h3>
 
-    <div class="price">${p.price}</div>
+    <div class="price">
+    ${p.price}
+    </div>
 
 </div>
+
 `;
 
 });
 
 /* ===== OPEN PRODUCT ===== */
+
 function openProduct(i){
 
     home.style.display="none";
+
     product.style.display="block";
 
-    pTitle.innerText=products[i].title;
+    pTitle.innerText=
+    products[i].title;
 
-    pPrice.innerText=products[i].price;
+    pPrice.innerText=
+    products[i].price;
 
     gallery.innerHTML=`
+
         <img src="${products[i].img}">
-        <img src="https://picsum.photos/600/400?random=${i+20}">
+
+        <img
+        src="https://picsum.photos/600/400?random=${i+20}">
+
     `;
 }
 
 /* ===== BACK ===== */
+
 function goBack(){
 
     home.style.display="block";
+
     product.style.display="none";
 
 }
