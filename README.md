@@ -257,12 +257,46 @@ h3{
     color:#00ff88;
 }
 
+/* ===== INFO BLOCK ===== */
+
 .info-block{
     margin-top:20px;
     background:#111;
     padding:25px;
     border-radius:14px;
     line-height:1.8;
+}
+
+/* ===== CART BUTTON ===== */
+
+.cart-btn{
+
+    margin:10px;
+
+    margin-top:auto;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#00ff88;
+
+    color:black;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.cart-btn:hover{
+
+    transform:scale(1.03);
+
+    background:white;
 }
 
 </style>
@@ -418,6 +452,16 @@ onclick="openProduct(${i})">
     <div class="price">
     ${p.price}
     </div>
+
+    <!-- ===== BUTTON ===== -->
+
+    <button
+    class="cart-btn"
+    onclick="event.stopPropagation()">
+
+    В корзину
+
+    </button>
 
 </div>
 
