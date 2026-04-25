@@ -86,6 +86,10 @@ body{
     width:100%;
     aspect-ratio:3/4;
 
+    position:relative;
+
+    overflow:hidden;
+
     background:
     linear-gradient(
     rgba(0,0,0,0.35),
@@ -96,7 +100,6 @@ body{
 
     background-size:cover;
     background-position:center;
-    position:relative;
 }
 
 /* ===== HEART ===== */
@@ -105,23 +108,25 @@ body{
 
     position:absolute;
 
-    top:10px;
+    top:14px;
 
-    right:10px;
+    right:14px;
 
-    width:42px;
+    width:44px;
 
-    height:42px;
+    height:44px;
 
     border:none;
 
     border-radius:50%;
 
-    background:rgba(0,0,0,0.75);
+    background:rgba(0,0,0,0.85);
 
     color:white;
 
     font-size:24px;
+
+    font-weight:bold;
 
     display:flex;
 
@@ -131,11 +136,11 @@ body{
 
     cursor:pointer;
 
-    z-index:999;
+    z-index:5000;
 
     transition:0.25s;
 
-    backdrop-filter:blur(6px);
+    box-shadow:0 0 15px rgba(0,0,0,0.4);
 }
 
 .like:hover{
