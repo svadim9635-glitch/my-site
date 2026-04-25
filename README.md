@@ -21,11 +21,9 @@ body{
     position:relative;
     margin-top:40px;
     text-align:center;
-
     opacity:0;
     transform:scale(0.8);
     filter:blur(20px);
-
     transition:0.8s ease;
 }
 
@@ -40,25 +38,18 @@ body{
     max-width:90%;
 }
 
-/* ===== BACK BUTTON ===== */
+/* ===== BACK ===== */
 
 .back{
     position:fixed;
     top:20px;
     left:20px;
-
     padding:10px 15px;
-
     background:#111;
-
     border:1px solid #333;
-
     color:white;
-
     border-radius:8px;
-
     cursor:pointer;
-
     z-index:9999;
 }
 
@@ -66,12 +57,9 @@ body{
 
 .grid{
     display:grid;
-
     grid-template-columns:
     repeat(auto-fit,minmax(260px,1fr));
-
     gap:20px;
-
     padding:40px;
 }
 
@@ -79,19 +67,12 @@ body{
 
 .card{
     background:#111;
-
     border-radius:14px;
-
     overflow:hidden;
-
     cursor:pointer;
-
     transition:0.3s;
-
     display:flex;
-
     flex-direction:column;
-
     position:relative;
 }
 
@@ -99,12 +80,10 @@ body{
     transform:scale(1.04);
 }
 
-/* ===== VERTICAL CARD ===== */
+/* ===== TABLE ===== */
 
 .table{
-
     width:100%;
-
     aspect-ratio:3/4;
 
     background:
@@ -116,29 +95,33 @@ body{
     url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
 
     background-size:cover;
-
     background-position:center;
-
     position:relative;
 }
 
-/* ===== LIKE ===== */
+/* ===== HEART ===== */
 
 .like{
 
     position:absolute;
 
-    top:12px;
+    top:10px;
 
-    right:12px;
+    right:10px;
 
-    width:40px;
+    width:42px;
 
-    height:40px;
+    height:42px;
+
+    border:none;
 
     border-radius:50%;
 
-    background:rgba(0,0,0,0.7);
+    background:rgba(0,0,0,0.75);
+
+    color:white;
+
+    font-size:24px;
 
     display:flex;
 
@@ -146,100 +129,68 @@ body{
 
     justify-content:center;
 
-    font-size:24px;
-
     cursor:pointer;
 
-    z-index:50;
+    z-index:999;
 
-    transition:0.3s;
+    transition:0.25s;
 
-    user-select:none;
+    backdrop-filter:blur(6px);
 }
 
 .like:hover{
-
     transform:scale(1.1);
 }
 
 .like.active{
-
     background:white;
-
     color:#ff2e63;
 }
 
 /* ===== FRAME ===== */
 
 .frame{
-
     position:absolute;
-
     width:75%;
-
     height:75%;
-
     top:12%;
-
     left:12%;
-
     border:2px solid rgba(255,255,255,0.8);
-
     overflow:hidden;
-
     border-radius:8px;
 }
 
-/* ===== IMAGE ===== */
+/* ===== ART ===== */
 
 .art{
-
     width:100%;
-
     height:100%;
-
     object-fit:cover;
-
     transition:0.4s;
 }
 
 /* ===== CAR ===== */
 
 .car{
-
     position:absolute;
-
     width:60%;
-
     left:20%;
-
     top:55%;
-
     opacity:0;
-
     pointer-events:none;
 }
 
 /* ===== SHADOW ===== */
 
 .shadow{
-
     position:absolute;
-
     width:60%;
-
     height:12px;
-
     left:20%;
-
     bottom:10px;
-
     background:black;
-
     filter:blur(10px);
-
     opacity:0;
-
     transition:0.3s;
 }
 
@@ -277,21 +228,16 @@ body{
     filter:brightness(0.35);
 }
 
-/* ===== PRODUCT PAGE ===== */
+/* ===== PRODUCT ===== */
 
 .product{
-
     display:none;
-
     padding:120px 40px;
 }
 
 .gallery img{
-
     width:220px;
-
     margin:5px;
-
     border-radius:10px;
 }
 
@@ -306,7 +252,7 @@ h3{
     color:#00ff88;
 }
 
-/* ===== INFO BLOCK ===== */
+/* ===== INFO ===== */
 
 .info-block{
     margin-top:20px;
@@ -319,32 +265,20 @@ h3{
 /* ===== CART BUTTON ===== */
 
 .cart-btn{
-
     margin:10px;
-
     margin-top:auto;
-
     padding:12px;
-
     border:none;
-
     border-radius:10px;
-
     background:#00ff88;
-
     color:black;
-
     font-weight:700;
-
     cursor:pointer;
-
     transition:0.3s;
 }
 
 .cart-btn:hover{
-
     transform:scale(1.03);
-
     background:white;
 }
 
@@ -353,13 +287,9 @@ h3{
 
 <body>
 
-<!-- ===== BACK ===== -->
-
 <button class="back" onclick="goBack()">
 ← Back
 </button>
-
-<!-- ===== HOME ===== -->
 
 <div id="home">
 
@@ -374,19 +304,12 @@ xmlns="http://www.w3.org/2000/svg">
 x="50%"
 y="58%"
 text-anchor="middle"
-
 fill="white"
-
 font-size="150"
-
 font-weight="900"
-
 letter-spacing="12"
-
 font-family="Arial Black, Arial"
-
 transform="skewX(-14)"
-
 >
 
 APEX
@@ -417,7 +340,7 @@ APEX
 
 <script>
 
-/* ===== LOGO ANIMATION ===== */
+/* ===== LOGO ===== */
 
 window.onload=()=>{
 
@@ -437,23 +360,14 @@ window.onload=()=>{
 const products=[
 
 "BMW M3",
-
 "Nissan GTR",
-
 "Mercedes AMG",
-
 "Toyota Supra",
-
 "Audi RS6",
-
 "Lamborghini Huracan",
-
 "Porsche 911",
-
 "Ferrari F8",
-
 "McLaren 720S",
-
 "Bugatti Chiron"
 
 ].map((name,i)=>({
@@ -469,7 +383,7 @@ const products=[
 
 const grid=document.getElementById("grid");
 
-/* ===== CREATE CARDS ===== */
+/* ===== CREATE ===== */
 
 products.forEach((p,i)=>{
 
@@ -480,15 +394,15 @@ onclick="openProduct(${i})">
 
     <div class="table">
 
-        <!-- LIKE -->
+        <!-- ❤️ -->
 
-        <div
+        <button
         class="like"
         onclick="toggleLike(event,this)">
 
         ♡
 
-        </div>
+        </button>
 
         <div class="frame">
 
@@ -512,8 +426,6 @@ onclick="openProduct(${i})">
     ${p.price}
     </div>
 
-    <!-- CART BUTTON -->
-
     <button
     class="cart-btn"
     onclick="event.stopPropagation()">
@@ -528,7 +440,7 @@ onclick="openProduct(${i})">
 
 });
 
-/* ===== LIKE FUNCTION ===== */
+/* ===== LIKE ===== */
 
 function toggleLike(event,el){
 
