@@ -91,6 +91,8 @@ body{
     display:flex;
 
     flex-direction:column;
+
+    position:relative;
 }
 
 .card:hover{
@@ -118,6 +120,53 @@ body{
     background-position:center;
 
     position:relative;
+}
+
+/* ===== LIKE ===== */
+
+.like{
+
+    position:absolute;
+
+    top:12px;
+
+    right:12px;
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,0.7);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    z-index:50;
+
+    transition:0.3s;
+
+    user-select:none;
+}
+
+.like:hover{
+
+    transform:scale(1.1);
+}
+
+.like.active{
+
+    background:white;
+
+    color:#ff2e63;
 }
 
 /* ===== FRAME ===== */
@@ -431,6 +480,16 @@ onclick="openProduct(${i})">
 
     <div class="table">
 
+        <!-- LIKE -->
+
+        <div
+        class="like"
+        onclick="toggleLike(event,this)">
+
+        ♡
+
+        </div>
+
         <div class="frame">
 
             <img
@@ -453,7 +512,7 @@ onclick="openProduct(${i})">
     ${p.price}
     </div>
 
-    <!-- ===== BUTTON ===== -->
+    <!-- CART BUTTON -->
 
     <button
     class="cart-btn"
@@ -468,6 +527,26 @@ onclick="openProduct(${i})">
 `;
 
 });
+
+/* ===== LIKE FUNCTION ===== */
+
+function toggleLike(event,el){
+
+    event.stopPropagation();
+
+    el.classList.toggle("active");
+
+    if(el.classList.contains("active")){
+
+        el.innerHTML="♥";
+
+    }else{
+
+        el.innerHTML="♡";
+
+    }
+
+}
 
 /* ===== OPEN PRODUCT ===== */
 
